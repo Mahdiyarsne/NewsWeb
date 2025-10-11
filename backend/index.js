@@ -1,12 +1,16 @@
 import express from 'express';
 import db from './config/Database.js';
+import userRoutes from './routes/userRoute.js';
 
 const app = express();
 const port = 5000;
 
+app.use(userRoutes);
+
 try {
   await db.authenticate();
   console.log('database connected');
+  await db.sync();
 } catch (error) {
   console.log(error);
 }
