@@ -5,12 +5,16 @@ import userRoutes from './routes/userRoute.js';
 const app = express();
 const port = 5000;
 
+//midelware
+app.use(express.json());
+
+//userRoutes
 app.use(userRoutes);
 
 try {
   await db.authenticate();
   console.log('database connected');
-  await db.sync();
+  //await db.sync();
 } catch (error) {
   console.log(error);
 }
