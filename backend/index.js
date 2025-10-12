@@ -1,13 +1,17 @@
 import express from 'express';
 import db from './config/Database.js';
 import userRoutes from './routes/userRoute.js';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+
+dotenv.config();
 
 const app = express();
 const port = 5000;
 
 //midelware
 app.use(express.json());
-
+app.use(cookieParser());
 //userRoutes
 app.use(userRoutes);
 

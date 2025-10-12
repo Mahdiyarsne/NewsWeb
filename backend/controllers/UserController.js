@@ -65,7 +65,16 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    const userId = user[0].id;
+    const name = user[0].name;
+    const email = user[0].email;
+    const isAdmin = user[0].isAdmin;
+
     res.status(200).json({
+      userId,
+      name,
+      email,
+      isAdmin,
       message: 'شما با مواقعیت وارد شدید',
     });
   } catch (error) {
