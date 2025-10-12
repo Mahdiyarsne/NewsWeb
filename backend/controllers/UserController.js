@@ -1,3 +1,4 @@
+import { response } from 'express';
 import Users from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 
@@ -11,7 +12,9 @@ export const getAllUsers = async (req, res) => {
     }
     res.json(users);
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({
+      message: 'مشکلی پیش آمده لطفا دوباره تلاش کن',
+    });
   }
 };
 
@@ -26,6 +29,12 @@ export const registerUser = async (req, res) => {
   const hashPassword = await bcrypt.hash(password, salt);
 
   try {
+    const found = await Users.findOne({ where: { email: email } });
+    if (found) {
+      return res
+        .status(400)
+        .json({ message: 'ایمیل توسط  کاربر دیگری گرفته شده است' });
+    }
     await Users.create({
       name: name,
       email: email,
@@ -33,8 +42,35 @@ export const registerUser = async (req, res) => {
       isAdmin: isAdmin,
     });
 
-    res.json({ message: 'ثبت نام موفقیت آمیز بود' });
+    res.status(200).json({ message: 'ثبت نام موفقیت آمیز بود' });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({
+      message: 'مشکلی پیش آمده لطفا دوباره تلاش کن',
+    });
+  }
+};
+
+export const loginUser = async (req, res) => {
+  try {
+    const user = await Users.findAll({
+      where: {
+        email: req.body.email,
+      },
+    });
+
+    const match = await bcrypt.compare(req.body.password, user[0].password);
+    if (!match) {
+      return res.status(400).json({
+        error: 'پسورود اشتباه است',
+      });
+    }
+
+    res.status(200).json({
+      message: 'شما با مواقعیت وارد شدید',
+    });
+  } catch (error) {
+    return res.status(404).json({
+      message: 'کاربر یافت نشد',
+    });
   }
 };
