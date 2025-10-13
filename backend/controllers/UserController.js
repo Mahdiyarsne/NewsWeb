@@ -1,6 +1,6 @@
-import { response } from 'express';
 import Users from '../models/userModel.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -69,17 +69,22 @@ export const loginUser = async (req, res) => {
     const name = user[0].name;
     const email = user[0].email;
     const isAdmin = user[0].isAdmin;
-
+    const accessToken = jwt.sign(
+      { userId, name, email, isAdmin },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '45s',
+      }
+    );
     res.status(200).json({
       userId,
       name,
       email,
       isAdmin,
+      accessToken,
       message: 'شما با مواقعیت وارد شدید',
     });
   } catch (error) {
-    return res.status(404).json({
-      message: 'کاربر یافت نشد',
-    });
+    console.log(error);
   }
 };
