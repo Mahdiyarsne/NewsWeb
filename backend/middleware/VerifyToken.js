@@ -9,9 +9,9 @@ export const verifyToken = (req, res, next) => {
       message: 'شما ابتدا باید وارد حساب کاربری شوید.',
     });
 
-  jwt.sign(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err)
-      res.status(401).json({
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (!err)
+      return res.status(401).json({
         message: 'توکن منقضی شده است',
       });
     next();

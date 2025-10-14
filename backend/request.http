@@ -1,6 +1,6 @@
 ####
 
-POST  http://localhost:5000/api/users/localhost:5000/api/users/login
+POST  http://localhost:5000/api/users/register
 Content-Type: application/json
 
 
