@@ -1,0 +1,18 @@
+####
+
+POST  http://localhost:5000/api/users/localhost:5000/api/users/login
+Content-Type: application/json
+
+
+{
+    "name":"Mahdiyar10",
+    "email":"Mahdiyar10@gmail.com",
+    "password":"123456",
+    "confPassword":"123456",
+    "isAdmin":"1"
+}
+
+
+
+
+
