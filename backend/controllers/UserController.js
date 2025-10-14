@@ -76,6 +76,23 @@ export const loginUser = async (req, res) => {
         expiresIn: '45s',
       }
     );
+
+    const refreshToken = jwt.sign(
+      { userId, name, email, isAdmin },
+      process.env.REFRESH_JWT,
+      {
+        expiresIn: '1d',
+      }
+    );
+
+    await Users.update(
+      { resresh_token: refreshToken },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
     res.status(200).json({
       userId,
       name,
