@@ -3,6 +3,7 @@ import db from './config/Database.js';
 import userRoutes from './routes/userRoute.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 
 const app = express();
 const port = 5000;
@@ -12,6 +13,7 @@ dotenv.config();
 //midelware
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
 //userRoutes
 app.use(userRoutes);
 

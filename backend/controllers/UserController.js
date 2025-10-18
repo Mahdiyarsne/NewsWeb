@@ -1,6 +1,7 @@
 import Users from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -181,5 +182,34 @@ export const updateUser = async (req, res) => {
     res.json({ message: 'کاربر با موفقعیت ابدیت شد' });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  const user = await Users.findOne({ where: { id: req.params.id } });
+  if (!user) return res.status(404).json({ error: 'کاربر یافت نشد' });
+
+  let fileName = '';
+  if (req.files === null) {
+    fileName = avatar.image;
+  } else {
+    const file = req.files.file;
+    const fileSize = file.data.length;
+    const ext = path.extname(file.name);
+    let dateNow = Math.random(Date.now());
+    const fileName = dateNow + ext;
+    const allowedType = ['.png', '.jpg', '.svg', 'jpeg'];
+    if (!allowedType.includes(ext.toLocaleLowerCase())) {
+      return res.json({
+        error: 'png jpg svg jpeg عکس معتبر نیست * فرمت های مجاز ',
+      });
+    }
+
+    if (fileSize > 5000000)
+      return res.json({ error: ' حجم عکس نباید بیشتر از 5 مگابایت باشد' });
+
+    file.mv(`./public/images/${fileName}`, (err) => {
+      if (err) return res.json({ msg: err.message });
+    });
   }
 };
