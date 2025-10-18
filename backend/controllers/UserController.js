@@ -158,3 +158,28 @@ export const deleteUser = async (req, res) => {
     console.log(error);
   }
 };
+
+export const updateUser = async (req, res) => {
+  const { name, email, password, confPassword, isAdmin } = req.body;
+
+  if (password !== confPassword) {
+    return res.json({ error: 'پسورد با تکرار آن مطابقت ندارد' });
+  }
+
+  const salt = await bcrypt.genSalt();
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  try {
+    await Users.update(
+      { name: name, email: email, password: hashPassword, isAdmin: isAdmin },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    res.json({ message: 'کاربر با موفقعیت ابدیت شد' });
+  } catch (error) {
+    console.log(error);
+  }
+};
