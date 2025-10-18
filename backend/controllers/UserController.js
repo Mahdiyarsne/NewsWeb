@@ -141,3 +141,20 @@ export const Logout = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  const user = await Users.findOne({ where: { id: req.params.id } });
+  if (!user) return res.status(404).json({ message: 'کاربر یافت نشد' });
+
+  try {
+    await Users.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    res.json({ message: 'کاربر با موفقیت حدف شد' });
+  } catch (error) {
+    console.log(error);
+  }
+};

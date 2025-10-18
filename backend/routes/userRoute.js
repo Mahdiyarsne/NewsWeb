@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  deleteUser,
   getAllUsers,
   loginUser,
   Logout,
@@ -14,6 +15,7 @@ router.get('/token', token);
 router.get('/api/users', verifyToken, getAllUsers);
 router.post('/api/users/register', registerUser);
 router.post('/api/users/login', loginUser);
-router.delete('/api/users/logout', Logout);
+router.delete('/api/users/logout', verifyToken, Logout);
+router.delete('/api/users/:id', verifyToken, deleteUser);
 
 export default router;
