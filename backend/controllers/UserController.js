@@ -111,3 +111,33 @@ export const loginUser = async (req, res) => {
     console.log(error);
   }
 };
+
+export const Logout = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken)
+      return res.status(404).json({
+        message: 'توکن یافت نشد',
+      });
+
+    const user = await Users.findOne({ resresh_token: refreshToken });
+    if (!user) return res.status(404).json({ message: 'کاربر یافت نشد' });
+    const clr = null;
+    await Users.update(
+      {
+        resresh_token: clr,
+      },
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+    res.clearCookie('refreshToken');
+    res.status(200).json({
+      message: 'کاربر با موفقعیت خارج شد',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
