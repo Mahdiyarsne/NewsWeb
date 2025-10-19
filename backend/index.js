@@ -4,6 +4,7 @@ import userRoutes from './routes/userRoute.js';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
+import categoryRoutes from './routes/categoryRoute.js';
 
 const app = express();
 const port = 5000;
@@ -17,6 +18,9 @@ app.use(express.static('public'));
 app.use(fileUpload());
 //userRoutes
 app.use(userRoutes);
+
+//categoryRoutes
+app.use(categoryRoutes);
 
 try {
   await db.authenticate();
