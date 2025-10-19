@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import fs from 'fs';
-import { url } from 'inspector';
 
 export const getAllUsers = async (req, res) => {
   try {
