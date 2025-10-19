@@ -2,6 +2,8 @@ import Users from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import path from 'path';
+import fs from 'fs';
+import { url } from 'inspector';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -191,25 +193,74 @@ export const updateProfile = async (req, res) => {
 
   let fileName = '';
   if (req.files === null) {
-    fileName = avatar.image;
+    fileName = user.image;
   } else {
     const file = req.files.file;
     const fileSize = file.data.length;
     const ext = path.extname(file.name);
-    let dateNow = Math.random(Date.now());
-    const fileName = dateNow + ext;
-    const allowedType = ['.png', '.jpg', '.svg', 'jpeg'];
-    if (!allowedType.includes(ext.toLocaleLowerCase())) {
+    let dateNow = Math.round(Date.now());
+    fileName = dateNow + ext;
+    const allowedType = ['.png', '.jpg', 'jpeg'];
+    if (!allowedType.includes(ext.toLowerCase())) {
       return res.json({
-        error: 'png jpg svg jpeg عکس معتبر نیست * فرمت های مجاز ',
+        error: 'png jpg jpeg عکس معتبر نیست * فرمت های مجاز ',
       });
     }
 
     if (fileSize > 5000000)
       return res.json({ error: ' حجم عکس نباید بیشتر از 5 مگابایت باشد' });
 
+    if (user.image) {
+      const filePath = `./public/images/${user.image}`;
+      fs.unlinkSync(filePath);
+    }
+
     file.mv(`./public/images/${fileName}`, (err) => {
       if (err) return res.json({ msg: err.message });
     });
+  }
+
+  const { name, password, confPassword } = req.body;
+  if (password !== confPassword) {
+    return res.status(401).json({ err: 'پسورد با تکرار آن مطابق نیست' });
+  }
+  const salt = await bcrypt.genSalt();
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  const url = `${req.protocol}://${req.get('host')}/images/${fileName}`;
+
+  try {
+    await Users.update(
+      {
+        name: name,
+        password: hashPassword,
+        image: fileName,
+        url: url,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    res.status(200).json({ msg: 'کاربر با موفقعیت ویرایش شد' });
+  } catch (error) {}
+};
+
+export const Profile = async (req, res) => {
+  try {
+    const id = req.userId;
+    const user = await Users.findByPk(id);
+    if (user) {
+      res.json({
+        id: user.id,
+        name: user.name,
+        url: user.url,
+      });
+    } else {
+      res.json({ err: 'کاربر یافت نشد' });
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

@@ -13,6 +13,7 @@ dotenv.config();
 //midelware
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static('public'));
 app.use(fileUpload());
 //userRoutes
 app.use(userRoutes);

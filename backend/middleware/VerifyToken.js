@@ -14,6 +14,8 @@ export const verifyToken = (req, res, next) => {
       return res.status(401).json({
         message: 'توکن منقضی شده است',
       });
+
+    req.userId = decoded.userId;
     next();
   });
 };

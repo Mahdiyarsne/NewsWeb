@@ -4,6 +4,7 @@ import {
   getAllUsers,
   loginUser,
   Logout,
+  Profile,
   registerUser,
   updateProfile,
   updateUser,
@@ -17,6 +18,7 @@ router.get('/token', token);
 router.get('/api/users', verifyToken, getAllUsers);
 router.post('/api/users/register', registerUser);
 router.post('/api/users/login', loginUser);
+router.get('/api/users/profile', verifyToken, Profile);
 router.put('/api/users/profile/:id', verifyToken, updateProfile);
 router.put('/api/users/:id', verifyToken, updateUser);
 router.delete('/api/users/logout', verifyToken, Logout);
