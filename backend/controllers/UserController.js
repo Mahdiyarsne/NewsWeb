@@ -206,8 +206,8 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    if (fileSize > 5000000)
-      return res.json({ error: ' حجم عکس نباید بیشتر از 5 مگابایت باشد' });
+    if (fileSize > 2000000)
+      return res.json({ error: ' حجم عکس نباید بیشتر از 2 مگابایت باشد' });
 
     if (user.image) {
       const filePath = `./public/images/${user.image}`;
