@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Users from '../models/userModel.js';
 
+//ساخت توکن مجدد
 export const token = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;

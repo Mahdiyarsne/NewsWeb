@@ -1,6 +1,6 @@
-import { where } from 'sequelize';
 import Category from '../models/categoryModel.js';
 
+//دریافت تمامی دسته بندی ها
 export const getCategories = async (req, res) => {
   try {
     const categories = await Category.findAll();
@@ -10,6 +10,7 @@ export const getCategories = async (req, res) => {
   }
 };
 
+//ساخت دسته بندی
 export const createCategory = async (req, res) => {
   const name = req.body.name;
   try {
@@ -22,6 +23,7 @@ export const createCategory = async (req, res) => {
   }
 };
 
+//ویرایش دسته بندی
 export const updateCategory = async (req, res) => {
   const name = req.body.name;
   try {
@@ -32,6 +34,7 @@ export const updateCategory = async (req, res) => {
   }
 };
 
+//حذف دسته بندی
 export const deleteCategory = async (req, res) => {
   try {
     await Category.destroy({

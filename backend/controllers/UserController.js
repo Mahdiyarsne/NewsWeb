@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import path from 'path';
 import fs from 'fs';
 
+//دریافت تمامی کاربران
 export const getAllUsers = async (req, res) => {
   try {
     const users = await Users.findAll({});
@@ -20,6 +21,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+//ثبت نام کاربر
 export const registerUser = async (req, res) => {
   const { name, email, password, confPassword, isAdmin } = req.body;
 
@@ -52,6 +54,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+//ورود کاربر
 export const loginUser = async (req, res) => {
   try {
     const user = await Users.findAll({
@@ -114,6 +117,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
+//خروج کاربر
 export const Logout = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
@@ -144,6 +148,7 @@ export const Logout = async (req, res) => {
   }
 };
 
+//حذف کاربر
 export const deleteUser = async (req, res) => {
   const user = await Users.findOne({ where: { id: req.params.id } });
   if (!user) return res.status(404).json({ message: 'کاربر یافت نشد' });
@@ -161,6 +166,7 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+//ویرایش کاربر
 export const updateUser = async (req, res) => {
   const { name, email, password, confPassword, isAdmin } = req.body;
 
@@ -186,6 +192,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
+//ویرایش پروفایل
 export const updateProfile = async (req, res) => {
   const user = await Users.findOne({ where: { id: req.params.id } });
   if (!user) return res.status(404).json({ error: 'کاربر یافت نشد' });
@@ -246,6 +253,7 @@ export const updateProfile = async (req, res) => {
   } catch (error) {}
 };
 
+//پروفایل کاربر
 export const Profile = async (req, res) => {
   try {
     const id = req.userId;
