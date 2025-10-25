@@ -106,3 +106,19 @@ export const updateNews = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteNews = async (req, res) => {
+  const news = await News.findOne({ where: { id: req.params.id } });
+  if (!news) return res.json({ mesg: 'خبر یافت نشد' });
+
+  try {
+    const filePath = `./public/avatar/${news.image}`;
+    fs.unlinkSync(filePath);
+
+    await news.destroy({ where: { id: req.params.id } });
+
+    res.json({ msg: 'خبر با موفعیت حذف شد' });
+  } catch (error) {
+    console.log(error);
+  }
+};
