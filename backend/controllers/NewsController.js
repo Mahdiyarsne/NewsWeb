@@ -2,6 +2,7 @@ import News from '../models/newsModel.js';
 import path from 'path';
 import fs from 'fs';
 
+//دریافت تمامی خبر ها
 export const getAllNews = async (req, res) => {
   try {
     const news = await News.findAll({});
@@ -11,6 +12,7 @@ export const getAllNews = async (req, res) => {
   }
 };
 
+//ساخت خبر
 export const createNews = async (req, res) => {
   if (req.files == null) return res.json({ error: 'عکسی انتخاب نشد' });
   const { title, desc, catId, userId } = req.body;
@@ -47,6 +49,7 @@ export const createNews = async (req, res) => {
   });
 };
 
+//دریافت خبر براساس ایدی
 export const getNewsById = async (req, res) => {
   try {
     const response = await News.findOne({ where: { id: req.params.id } });
@@ -56,6 +59,7 @@ export const getNewsById = async (req, res) => {
   }
 };
 
+//ویرایش خبر
 export const updateNews = async (req, res) => {
   const news = await News.findOne({ where: { id: req.params.id } });
   if (!news) return res.status(404).json({ msg: 'دیتایی یافت نشد' });
@@ -107,6 +111,7 @@ export const updateNews = async (req, res) => {
   }
 };
 
+//حذف خبر
 export const deleteNews = async (req, res) => {
   const news = await News.findOne({ where: { id: req.params.id } });
   if (!news) return res.json({ mesg: 'خبر یافت نشد' });
@@ -118,6 +123,19 @@ export const deleteNews = async (req, res) => {
     await news.destroy({ where: { id: req.params.id } });
 
     res.json({ msg: 'خبر با موفعیت حذف شد' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//دریافت اخرین خبر
+export const getLastNews = async (req, res) => {
+  try {
+    const news = await News.findAll({
+      limit: 2,
+      order: [['id', 'DESC']],
+    });
+    res.json(news);
   } catch (error) {
     console.log(error);
   }

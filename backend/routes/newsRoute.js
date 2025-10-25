@@ -3,12 +3,16 @@ import {
   createNews,
   deleteNews,
   getAllNews,
+  getLastNews,
   getNewsById,
   updateNews,
 } from '../controllers/NewsController.js';
 import { verifyToken } from '../middleware/verifyToken.js';
 
 const router = express.Router();
+
+//دریافت اخرین خبر ها
+router.get('/api/news/last-news', getLastNews);
 
 router.get('/api/get-news', verifyToken, getAllNews);
 router.get('/api/get-news/:id', verifyToken, getNewsById);
