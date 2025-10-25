@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize';
 import db from '../config/Database.js';
+import Users from './userModel.js';
+import Category from './categoryModel.js';
 
 const { DataTypes } = Sequelize;
 
@@ -18,5 +20,13 @@ const News = db.define(
     freezeTableName: true,
   }
 );
+
+//رابطه کاربر با خبرها
+Users.hasMany(News);
+News.belongsTo(Users, { foreignKey: 'userId' });
+
+//رابطه دسته بندی با
+Category.hasMany(News);
+News.belongsTo(Category, { foreignKey: 'catId' });
 
 export default News;

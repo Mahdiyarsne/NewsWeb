@@ -1,6 +1,7 @@
 import News from '../models/newsModel.js';
 import path from 'path';
 import fs from 'fs';
+import Category from '../models/categoryModel.js';
 
 //دریافت تمامی خبر ها
 export const getAllNews = async (req, res) => {
@@ -134,6 +135,7 @@ export const getLastNews = async (req, res) => {
     const news = await News.findAll({
       limit: 2,
       order: [['id', 'DESC']],
+      include: [Category],
     });
     res.json(news);
   } catch (error) {
