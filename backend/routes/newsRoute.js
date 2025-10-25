@@ -3,6 +3,7 @@ import {
   createNews,
   deleteNews,
   getAllNews,
+  getDetailNews,
   getLastNews,
   getNewsById,
   updateNews,
@@ -13,6 +14,8 @@ const router = express.Router();
 
 //دریافت اخرین خبر ها
 router.get('/api/news/last-news', getLastNews);
+//دریافت جزییات خبر
+router.get('/api/news/detail/:id', getDetailNews);
 
 router.get('/api/get-news', verifyToken, getAllNews);
 router.get('/api/get-news/:id', verifyToken, getNewsById);
