@@ -3,9 +3,11 @@ import {
   createNews,
   deleteNews,
   getAllNews,
+  getCatNews,
   getDetailNews,
   getLastNews,
   getNewsById,
+  popularNews,
   updateNews,
 } from '../controllers/NewsController.js';
 import { verifyToken } from '../middleware/verifyToken.js';
@@ -16,6 +18,10 @@ const router = express.Router();
 router.get('/api/news/last-news', getLastNews);
 //دریافت جزییات خبر
 router.get('/api/news/detail/:id', getDetailNews);
+//دریافت خبرهای محبوب
+router.get('/api/news/popular', popularNews);
+//دریافت دسته بندی خبر
+router.get('/api/news/cat-news', getCatNews);
 
 router.get('/api/get-news', verifyToken, getAllNews);
 router.get('/api/get-news/:id', verifyToken, getNewsById);

@@ -2,6 +2,7 @@ import News from '../models/newsModel.js';
 import path from 'path';
 import fs from 'fs';
 import Category from '../models/categoryModel.js';
+import Users from '../models/userModel.js';
 
 //دریافت تمامی خبر ها
 export const getAllNews = async (req, res) => {
@@ -152,7 +153,45 @@ export const getDetailNews = async (req, res) => {
     const numViews = response.numViews + 1;
     await News.update({ numViews }, { where: { id: req.params.id } });
     res.json(response);
-    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//دریافت محبوب ترین خبر
+
+export const popularNews = async (req, res) => {
+  try {
+    const news = await News.findAll({
+      limit: 4,
+      order: [['numViews', 'DESC']],
+      include: [
+        {
+          model: Users,
+          attributes: ['id', 'name', 'email', 'url'],
+        },
+      ],
+    });
+
+    res.json(news);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//دریافت دسته بندی خبر
+export const getCatNews = async (req, res) => {
+  try {
+    const hasCategory = req.query.cat;
+    const news = hasCategory
+      ? await News.findAll({
+          where: { catId: hasCategory },
+          order: [['id', 'DESC']],
+        })
+      : await News.findAll({
+          order: [['id', 'DESC']],
+        });
+    res.json(news);
   } catch (error) {
     console.log(error);
   }
