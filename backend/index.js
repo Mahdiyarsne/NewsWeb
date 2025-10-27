@@ -6,7 +6,8 @@ import fileUpload from 'express-fileupload';
 import userRoutes from './routes/userRoute.js';
 import categoryRoutes from './routes/categoryRoute.js';
 import videoRoutes from './routes/videoRoutes.js';
-import newsRouters from './routes/newsRoute.js';
+import newsRoutes from './routes/newsRoute.js';
+import commentsRoutes from './routes/commentsRoute.js';
 
 const app = express();
 const port = 5000;
@@ -29,7 +30,10 @@ app.use(categoryRoutes);
 app.use(videoRoutes);
 
 //newsRoutes
-app.use(newsRouters);
+app.use(newsRoutes);
+
+//commentsRoutes
+app.use(commentsRoutes);
 
 try {
   await db.authenticate();
