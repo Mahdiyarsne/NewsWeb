@@ -58,3 +58,39 @@ export const deleteComment = async (req, res) => {
     console.log(error);
   }
 };
+
+//فعال کردن نظر
+
+export const activeComment = async (req, res) => {
+  try {
+    const { isActive } = req.body;
+    await Comments.update({ isActive }, { where: { id: req.params.id } });
+    res.json({ msg: 'نظر فعال شد' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//غیر فعال کردن نظر
+
+export const unActiveComment = async (req, res) => {
+  try {
+    const { isActive } = req.body;
+    await Comments.update({ isActive }, { where: { id: req.params.id } });
+    res.json({ msg: 'نظر غیرفعال شد.' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//دریافت یک کامنت
+
+export const getComment = async (req, res) => {
+  try {
+    const newsId = req.params.newsId;
+    const comments = await Comments.findAll({ where: { newsId: newsId } });
+    res.json(comments);
+  } catch (error) {
+    console.log(error);
+  }
+};
