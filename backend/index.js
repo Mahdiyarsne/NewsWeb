@@ -8,6 +8,7 @@ import categoryRoutes from './routes/categoryRoute.js';
 import videoRoutes from './routes/videoRoutes.js';
 import newsRoutes from './routes/newsRoute.js';
 import commentsRoutes from './routes/commentsRoute.js';
+import sendEmailRoutes from './routes/sendEmailRoute.js';
 
 const app = express();
 const port = 5000;
@@ -34,6 +35,9 @@ app.use(newsRoutes);
 
 //commentsRoutes
 app.use(commentsRoutes);
+
+//send email
+app.use(sendEmailRoutes);
 
 try {
   await db.authenticate();
