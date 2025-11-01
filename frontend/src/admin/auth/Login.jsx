@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import './auth.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ const formSchema = Yup.object({
 });
 
 const Login = () => {
-  const {} = useContext(AdminContext);
+  const { login, error } = useContext(AdminContext);
 
   const formik = useFormik({
     initialValues: {
@@ -18,7 +18,7 @@ const Login = () => {
       password: '',
     },
     onSubmit: (values) => {
-      console.log(values);
+      login(values);
     },
     validationSchema: formSchema,
   });
@@ -33,9 +33,10 @@ const Login = () => {
               <form
                 className='box'
                 onSubmit={formik.handleSubmit}>
-                <h1 className='title has-tex-centered mb-5'>
+                <h1 className='title has-text-centered mb-5'>
                   ورود به پنل مدیریت
                 </h1>
+                <h1 className='has-text-centered has-text-danger py-3'>{error}</h1>
                 <div className='field'>
                   <label className='label'>ایمیل</label>
                   <div className='control'>

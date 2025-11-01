@@ -9,6 +9,7 @@ import videoRoutes from './routes/videoRoutes.js';
 import newsRoutes from './routes/newsRoute.js';
 import commentsRoutes from './routes/commentsRoute.js';
 import sendEmailRoutes from './routes/sendEmailRoute.js';
+import cors from 'cors';
 
 const app = express();
 const port = 5000;
@@ -16,6 +17,7 @@ const port = 5000;
 dotenv.config();
 
 //midelware
+app.use(cors({credentials:true,origin:"http://localhost:3000"}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
