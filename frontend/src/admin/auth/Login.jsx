@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './auth.css';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { AdminContext } from '../context/context';
+
+const formSchema = Yup.object({
+  email: Yup.string().required('ایمیل الزامی است'),
+  password: Yup.string().required('پسورد الزامی است '),
+});
 
 const Login = () => {
+  const {} = useContext(AdminContext);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -11,6 +20,7 @@ const Login = () => {
     onSubmit: (values) => {
       console.log(values);
     },
+    validationSchema: formSchema,
   });
 
   return (
@@ -37,6 +47,9 @@ const Login = () => {
                       onChange={formik.handleChange('email')}
                       onBlur={formik.handleBlur('email')}
                     />
+                    <p className='help has-text-danger'>
+                      {formik.touched.email && formik.errors.email}
+                    </p>
                   </div>
                   <div className='field'>
                     <label className='label'>پسورد</label>
@@ -49,6 +62,9 @@ const Login = () => {
                         onChange={formik.handleChange('password')}
                         onBlur={formik.handleBlur('password')}
                       />
+                      <p className='help has-text-danger'>
+                        {formik.touched.password && formik.errors.password}
+                      </p>
                     </div>
                   </div>
 
