@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 
 export const AdminContext = createContext();
 
@@ -14,6 +15,22 @@ export const AdminContextProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    refreshToken();
+  }, []);
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/token');
+      setToken(response.data.accessToken);
+      const decode = jwtDecode(response.data.accessToken);
+
+      setName(decode.name);
+      setUserId(decode.userId);
+      setAdmin(decode.setAdmin);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const login = async (inputs) => {
     try {
@@ -45,8 +62,21 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const getAllUsers = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/users', {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AdminContext.Provider value={{ login, error }}>
+    <AdminContext.Provider value={{ login, error, getAllUsers }}>
       {children}
     </AdminContext.Provider>
   );

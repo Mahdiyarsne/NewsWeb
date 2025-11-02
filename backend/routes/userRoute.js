@@ -9,7 +9,7 @@ import {
   updateProfile,
   updateUser,
 } from '../controllers/UserController.js';
-import { verifyToken } from '../middleware/verifyToken.js';
+import { verifyToken } from '../middleware/VerifyToken.js';
 import { token } from '../controllers/RefreshToken.js';
 
 const router = express.Router();

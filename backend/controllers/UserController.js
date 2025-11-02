@@ -35,9 +35,7 @@ export const registerUser = async (req, res) => {
   try {
     const found = await Users.findOne({ where: { email: email } });
     if (found) {
-      return res
-        .status(400)
-        .json({ message: 'ایمیل توسط  کاربر دیگری گرفته شده است' });
+      return res.json({ message: 'ایمیل توسط  کاربر دیگری گرفته شده است' });
     }
     await Users.create({
       name: name,
@@ -122,12 +120,12 @@ export const Logout = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken)
-      return res.status(404).json({
+      return res.json({
         message: 'توکن یافت نشد',
       });
 
     const user = await Users.findOne({ resresh_token: refreshToken });
-    if (!user) return res.status(404).json({ message: 'کاربر یافت نشد' });
+    if (!user) return res.json({ message: 'کاربر یافت نشد' });
     const clr = null;
     await Users.update(
       {
@@ -151,7 +149,7 @@ export const Logout = async (req, res) => {
 //حذف کاربر
 export const deleteUser = async (req, res) => {
   const user = await Users.findOne({ where: { id: req.params.id } });
-  if (!user) return res.status(404).json({ message: 'کاربر یافت نشد' });
+  if (!user) return res.json({ message: 'کاربر یافت نشد' });
 
   try {
     await Users.destroy({
@@ -195,7 +193,7 @@ export const updateUser = async (req, res) => {
 //ویرایش پروفایل
 export const updateProfile = async (req, res) => {
   const user = await Users.findOne({ where: { id: req.params.id } });
-  if (!user) return res.status(404).json({ error: 'کاربر یافت نشد' });
+  if (!user) return res.json({ error: 'کاربر یافت نشد' });
 
   let fileName = '';
   if (req.files === null) {
@@ -228,7 +226,7 @@ export const updateProfile = async (req, res) => {
 
   const { name, password, confPassword } = req.body;
   if (password !== confPassword) {
-    return res.status(401).json({ err: 'پسورد با تکرار آن مطابق نیست' });
+    return res.json({ err: 'پسورد با تکرار آن مطابق نیست' });
   }
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(password, salt);

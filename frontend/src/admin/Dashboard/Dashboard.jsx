@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AdminContext } from '../context/context';
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  const { getAllUsers } = useContext(AdminContext);
+
+  return (
+    <>
+      <div>Dashboard</div>
+      <button onClick={getAllUsers}>کاربران</button>
+    </>
+  );
 };
 
 export default Dashboard;
