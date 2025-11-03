@@ -13,6 +13,7 @@ export const AdminContextProvider = ({ children }) => {
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
   const [admin, setAdmin] = useState(null);
+  const [expire, SetExpire] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,10 +28,34 @@ export const AdminContextProvider = ({ children }) => {
       setName(decode.name);
       setUserId(decode.userId);
       setAdmin(decode.setAdmin);
+      SetExpire(decode.exp);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const axiosJWT = axios.create();
+  axiosJWT.interceptors.request.use(
+    async (config) => {
+      const currentDate = Date.now();
+      if (expire * 1000 < currentDate.getTime()) {
+        const response = await axios.get('http://localhost:5000/token');
+        config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+        setToken(response.data.accessToken);
+        const decode = jwtDecode(response.data.accessToken);
+
+        setName(decode.name);
+        setUserId(decode.userId);
+        setAdmin(decode.setAdmin);
+        SetExpire(decode.exp);
+      }
+      return config;
+    },
+
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   const login = async (inputs) => {
     try {
@@ -64,7 +89,7 @@ export const AdminContextProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axiosJWT.get('http://localhost:5000/api/users', {
         headers: {
           authorization: `Bearer ${token}`,
         },
