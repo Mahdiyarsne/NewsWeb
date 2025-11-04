@@ -1,0 +1,14 @@
+.dashboard-wrapper {
+  display: flex;
+}
+
+.main-info {
+  background: rgb(252, 252, 252);
+  width: calc(100% - 300px);
+}
+
+.main {
+  padding: 30px 150px;
+  width: 100%;
+  color: rgb(42, 42, 42);
+}
