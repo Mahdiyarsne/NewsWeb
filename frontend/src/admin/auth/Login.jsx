@@ -36,9 +36,11 @@ const Login = () => {
                 <h1 className='title has-text-centered mb-5'>
                   ورود به پنل مدیریت
                 </h1>
-                <h1 className='has-text-centered has-text-danger py-3'>{error}</h1>
+                <h1 className='has-text-centered has-text-danger py-3'>
+                  {error}
+                </h1>
                 <div className='field'>
-                  <label className='label'>ایمیل</label>
+                  <label className='label has-text-white'>ایمیل</label>
                   <div className='control'>
                     <input
                       type='text'
@@ -53,7 +55,7 @@ const Login = () => {
                     </p>
                   </div>
                   <div className='field'>
-                    <label className='label'>پسورد</label>
+                    <label className='label has-text-white'>پسورد</label>
                     <div className='control'>
                       <input
                         type='password'
@@ -72,7 +74,7 @@ const Login = () => {
                   <div className='field mt-5'>
                     <button
                       type='submit'
-                      className='button is-success is-fullwidth'>
+                      className='button is-success is-fullwidth has-text-white'>
                       ورود
                     </button>
                   </div>

@@ -62,10 +62,6 @@ export const loginUser = async (req, res) => {
       },
     });
 
-    if (!user) {
-      return res.json({ error: 'کاربر یافت نشد' });
-    }
-
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (!match) {
       return res.json({
@@ -117,6 +113,9 @@ export const loginUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.json({
+      error: 'کاربر وجود ندارد',
+    });
   }
 };
 
@@ -130,7 +129,7 @@ export const Logout = async (req, res) => {
       });
 
     const user = await Users.findOne({ resresh_token: refreshToken });
-    if (!user) return res.json({ message: 'کاربر یافت نشد' });
+    if (!user) return res.json({ error: 'کاربر یافت نشد' });
     const clr = null;
     await Users.update(
       {

@@ -73,7 +73,6 @@ export const AdminContextProvider = ({ children }) => {
           hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
-          draggable: true,
           progress: undefined,
           theme: 'colored',
         });
