@@ -37,7 +37,7 @@ export const AdminContextProvider = ({ children }) => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      const currentDate = Date.now();
+      const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
         const response = await axios.get('http://localhost:5000/token');
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
@@ -70,10 +70,8 @@ export const AdminContextProvider = ({ children }) => {
         toast.success(res.data.message, {
           position: 'bottom-right',
           autoClose: 5000,
-          hideProgressBar: false,
           closeOnClick: false,
           pauseOnHover: true,
-          progress: undefined,
           theme: 'colored',
         });
         setName(res.data.name);
@@ -99,8 +97,39 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const createNews = async (data) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('desc', data.desc);
+    formData.append('catId', data.catId);
+    formData.append('userId', userId);
+    formData.append('file', data.file);
+    try {
+      const res = await axiosJWT.post(
+        'http://localhost:5000/api/create-news',
+        formData,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/view-news')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AdminContext.Provider value={{ login, error, getAllUsers }}>
+    <AdminContext.Provider
+      value={{ login, error, getAllUsers, axiosJWT, token, createNews }}>
       {children}
     </AdminContext.Provider>
   );
