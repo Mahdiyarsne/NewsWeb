@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import fs from 'fs';
+import { error } from 'console';
 
 //دریافت تمامی کاربران
 export const getAllUsers = async (req, res) => {
@@ -60,6 +61,10 @@ export const loginUser = async (req, res) => {
         email: req.body.email,
       },
     });
+
+    if (!user) {
+      return res.json({ error: 'کاربر یافت نشد' });
+    }
 
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (!match) {
