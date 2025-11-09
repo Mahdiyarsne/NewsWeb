@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../../Dashboard';
 import { Link } from 'react-router-dom';
 import './news.css';
+import { AdminContext } from '../../../context/context';
 
 const ViewNews = () => {
+  const { news, handleNews, deleteNews } = useContext(AdminContext);
+
+  useEffect(() => {
+    handleNews();
+  }, []);
+
   return (
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
@@ -14,12 +21,11 @@ const ViewNews = () => {
         </Link>
       </div>
 
-      <table className='table is-fullwidth has-background-white'>
+      <table className='table is-fullwidth has-background-white '>
         <thead className='is-fullwidth'>
           <tr>
             <th>شماره</th>
             <th>عنوان</th>
-            <th>متن </th>
             <th>تصویر </th>
             <th>نویسنده</th>
             <th>ویرایش</th>
@@ -27,21 +33,35 @@ const ViewNews = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>متن</td>
-            <td>تست متن</td>
-            <td>عکس</td>
-            <td>مهدی یار</td>
-            <td>
-              <button className='button has-text-white is-success'>
-                ویرایش
-              </button>
-            </td>
-            <td>
-              <button className='button has-text-white is-danger'>حذف </button>
-            </td>
-          </tr>
+          {news?.map((item, index) => {
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{item.title}</td>
+                <td>
+                  <img
+                    src={item.url}
+                    width='80'
+                    alt=''
+                  />
+                </td>
+
+                <td>{item?.user?.name}</td>
+                <td>
+                  <button className='button has-text-white is-success'>
+                    ویرایش
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => deleteNews(item.id)}
+                    className='button has-text-white is-danger'>
+                    حذف
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Dashboard>

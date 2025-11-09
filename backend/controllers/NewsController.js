@@ -7,7 +7,9 @@ import Users from '../models/userModel.js';
 //دریافت تمامی خبر ها
 export const getAllNews = async (req, res) => {
   try {
-    const news = await News.findAll({});
+    const news = await News.findAll({
+      include: [Users],
+    });
     res.json(news);
   } catch (error) {
     console.log(error);

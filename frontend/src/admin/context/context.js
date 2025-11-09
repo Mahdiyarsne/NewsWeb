@@ -14,6 +14,7 @@ export const AdminContextProvider = ({ children }) => {
   const [token, setToken] = useState('');
   const [admin, setAdmin] = useState(null);
   const [expire, SetExpire] = useState('');
+  const [news, setNews] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -121,15 +122,60 @@ export const AdminContextProvider = ({ children }) => {
         pauseOnHover: true,
         theme: 'colored',
       });
-      navigate('/view-news')
+      navigate('/view-news');
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleNews = async () => {
+    try {
+      const res = await axiosJWT.get('http://localhost:5000/api/get-news', {
+        headers: {
+          authoriztion: `Bearer ${token}`,
+        },
+      });
+      setNews(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteNews = async (id) => {
+    try {
+      const res = await axiosJWT.delete(
+        `http://localhost:5000/api/delete-news/${id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      handleNews();
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <AdminContext.Provider
-      value={{ login, error, getAllUsers, axiosJWT, token, createNews }}>
+      value={{
+        login,
+        error,
+        getAllUsers,
+        axiosJWT,
+        token,
+        createNews,
+        news,
+        handleNews,
+        deleteNews,
+      }}>
       {children}
     </AdminContext.Provider>
   );
