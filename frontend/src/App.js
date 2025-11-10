@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import ViewNews from './admin/dashboard/components/news/ViewNews';
 import Main from './admin/dashboard/components/main/Main';
 import AddNews from './admin/dashboard/components/news/AddNews';
+import EditNews from './admin/dashboard/components/news/EditNews';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         <Route
           path='/view-news'
           element={<ViewNews />}
+        />
+        <Route
+          path='/edit-news/:id'
+          element={<EditNews />}
         />
       </Routes>
 

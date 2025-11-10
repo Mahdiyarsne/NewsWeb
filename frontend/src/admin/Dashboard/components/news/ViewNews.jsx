@@ -53,9 +53,11 @@ const ViewNews = () => {
 
                 <td>{item?.user?.name}</td>
                 <td>
-                  <button className='button has-text-white is-success'>
+                  <Link
+                    to={`/edit-news/${item.id}`}
+                    className='button has-text-white is-info'>
                     ویرایش
-                  </button>
+                  </Link>
                 </td>
                 <td>
                   <button
