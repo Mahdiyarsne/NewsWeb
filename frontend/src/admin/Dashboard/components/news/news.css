@@ -16,3 +16,34 @@
   background: rgba(252, 252, 252);
   color: rgb(42, 42, 42);
 }
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 115vh;
+}
+
+.modal-news {
+  width: 450px;
+  height: 220px;
+  background: white;
+  padding: 50px;
+}
+
+.modal-news h1 {
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.modal-news button {
+  color: white;
+  font-size: 20px;
+}

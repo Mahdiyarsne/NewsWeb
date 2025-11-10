@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 
@@ -15,6 +15,7 @@ export const AdminContextProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [expire, SetExpire] = useState('');
   const [news, setNews] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -130,9 +131,9 @@ export const AdminContextProvider = ({ children }) => {
 
   const handleNews = async () => {
     try {
-      const res = await axiosJWT.get('http://localhost:5000/api/get-news', {
+      const res = await axiosJWT.get(`http://localhost:5000/api/get-news`, {
         headers: {
-          authoriztion: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       });
       setNews(res.data);

@@ -6,6 +6,11 @@ import { AdminContext } from '../../../context/context';
 
 const ViewNews = () => {
   const { news, handleNews, deleteNews } = useContext(AdminContext);
+  const [showModal, setShowModal] = useState(false);
+  const [id, setId] = useState('');
+  const handelId = (id) => {
+    setId(id);
+  };
 
   useEffect(() => {
     handleNews();
@@ -54,9 +59,9 @@ const ViewNews = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => deleteNews(item.id)}
+                    onClick={() => setShowModal(true)}
                     className='button has-text-white is-danger'>
-                    حذف
+                    <span onClick={() => handelId(item.id)}>حذف</span>
                   </button>
                 </td>
               </tr>
@@ -64,6 +69,26 @@ const ViewNews = () => {
           })}
         </tbody>
       </table>
+
+      {showModal ? (
+        <div className='modal-overlay'>
+          <div className='modal-news has-text-centered'>
+            <h1 className='has-text-centered'>آیا از حذف این خبر مطمعنید؟</h1>
+            <button
+              className='button is-danger ml-2'
+              onClick={() => deleteNews(id)}>
+              <span onClick={() => setShowModal(false)}>بله مطمعنم</span>
+            </button>
+            <button
+              className='button is-success'
+              onClick={() => setShowModal(false)}>
+              خیر
+            </button>
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
     </Dashboard>
   );
 };
