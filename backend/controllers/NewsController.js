@@ -66,7 +66,7 @@ export const getNewsById = async (req, res) => {
 //ویرایش خبر
 export const updateNews = async (req, res) => {
   const news = await News.findOne({ where: { id: req.params.id } });
-  if (!news) return res.status(404).json({ msg: 'دیتایی یافت نشد' });
+  if (!news) return res.json({ msg: 'دیتایی یافت نشد' });
 
   let fileName = '';
   if (req.files == null) {
@@ -79,9 +79,9 @@ export const updateNews = async (req, res) => {
     fileName = dateNow + ext;
     const allowedType = ['.png', '.jpg', '.jpeg'];
     if (!allowedType.includes(ext.toLowerCase())) {
-      return res
-        .status(403)
-        .json({ msg: ' .png,.jpg,.jpeg * فرمت عکس معتبر نیست و از مجاز ' });
+      return res.json({
+        msg: ' .png,.jpg,.jpeg * فرمت عکس معتبر نیست و از مجاز ',
+      });
     }
     if (fileSize > 5000000)
       return res.json({ msg: '.حجم عکس نباید 5 مگابایت بیشتر باشد' });

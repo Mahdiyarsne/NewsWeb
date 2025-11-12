@@ -54,6 +54,7 @@ const ViewNews = () => {
                 <td>{item?.user?.name}</td>
                 <td>
                   <Link
+                    state={item}
                     to={`/edit-news/${item.id}`}
                     className='button has-text-white is-info'>
                     ویرایش

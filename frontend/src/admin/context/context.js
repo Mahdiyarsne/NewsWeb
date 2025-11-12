@@ -15,6 +15,7 @@ export const AdminContextProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [expire, SetExpire] = useState('');
   const [news, setNews] = useState([]);
+  const [singlePost, setSinglePost] = useState([]);
 
   const navigate = useNavigate();
 
@@ -164,6 +165,53 @@ export const AdminContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const singleNews = async (id) => {
+    try {
+      const res = await axiosJWT.get(
+        `http://localhost:5000/api/get-news/${id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSinglePost(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateNews = async (data) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('desc', data.desc);
+    formData.append('catId', data.catId);
+    formData.append('userId', userId);
+    formData.append('file', data.file);
+    try {
+      const res = await axiosJWT.put(
+        `http://localhost:5000/api/update-news/${data.id}`,
+        formData,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/view-news');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -176,6 +224,9 @@ export const AdminContextProvider = ({ children }) => {
         news,
         handleNews,
         deleteNews,
+        singleNews,
+        singlePost,
+        updateNews,
       }}>
       {children}
     </AdminContext.Provider>

@@ -4,6 +4,7 @@ import './news.css';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { AdminContext } from '../../../context/context';
+import { useLocation, useParams } from 'react-router-dom';
 
 const formSchema = Yup.object({
   title: Yup.string().required('عنوان خبر الزامی است'),
@@ -12,38 +13,23 @@ const formSchema = Yup.object({
 });
 
 const EditNews = () => {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      desc: '',
-      catId: '',
-      file: '',
-    },
-    onSubmit: (values) => {
-      const data = {
-        title: values.title,
-        desc: values.desc,
-        catId: values.catId,
-        file: file,
-      };
-      createNews(data);
-    },
-    validationSchema: formSchema,
-  });
-
-  const { axiosJWT, token, createNews } = useContext(AdminContext);
+  const { axiosJWT, token, singleNews, updateNews } = useContext(AdminContext);
   const [categoryList, setCategroyList] = useState([]);
   const [file, setFile] = useState([]);
   const [preview, setPreview] = useState('');
-
   const loadImage = (e) => {
     const image = e.target.files[0];
     setFile(image);
     setPreview(URL.createObjectURL(image));
   };
 
+  const { id } = useParams();
+  const { state } = useLocation();
+
+  
   useEffect(() => {
     getAllCategory();
+    singleNews(id);
   }, []);
 
   const getAllCategory = async () => {
@@ -59,6 +45,26 @@ const EditNews = () => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      title: state.title,
+      desc: state.desc,
+      catId: state.catId,
+      file: '',
+    },
+    onSubmit: (values) => {
+      const data = {
+        title: values.title,
+        desc: values.desc,
+        catId: values.catId,
+        file: file,
+        id: id,
+      };
+      updateNews(data);
+    },
+    validationSchema: formSchema,
+  });
+
   return (
     <Dashboard>
       <form onSubmit={formik.handleSubmit}>
@@ -68,7 +74,7 @@ const EditNews = () => {
             <input
               type='text'
               className='input has-text-black has-background-white '
-              value={formik.values.title}
+              defaultValue={state.title}
               onChange={formik.handleChange('title')}
               onBlur={formik.handleBlur('title')}
             />
@@ -82,7 +88,7 @@ const EditNews = () => {
           <div className='control'>
             <textarea
               className='textarea'
-              value={formik.values.desc}
+              defaultValue={state.desc}
               onChange={formik.handleChange('desc')}
               onBlur={formik.handleBlur('desc')}></textarea>
             <p className='help has-text-danger'>
@@ -97,7 +103,7 @@ const EditNews = () => {
             <div className='select is-fullwidth  '>
               <select
                 className='has-text-black has-background-white'
-                value={formik.values.catId}
+                defaultValue={state.catId}
                 onChange={formik.handleChange('catId')}
                 onBlur={formik.handleBlur('catId')}>
                 <option>انتخاب کنید</option>
@@ -128,8 +134,8 @@ const EditNews = () => {
               <figure className='mt-3'>
                 <img
                   src={preview}
-                  width='200'
-                  alt='not-found'
+                  width='100'
+                  alt=''
                 />
               </figure>
             ) : (
