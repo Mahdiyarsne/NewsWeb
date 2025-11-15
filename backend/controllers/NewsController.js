@@ -94,7 +94,7 @@ export const updateNews = async (req, res) => {
   }
 
   const { title, desc, userId, catId } = req.body;
-  const url = `${req.protocol}://${req.get('host')}/avater/${fileName}`;
+  const url = `${req.protocol}://${req.get('host')}/avatar/${fileName}`;
 
   try {
     await News.update(
