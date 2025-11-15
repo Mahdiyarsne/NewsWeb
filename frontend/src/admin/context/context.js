@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
-import { data, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
+import { baseUrl } from '../../utils/baseUrl';
 
 export const AdminContext = createContext();
 
@@ -24,7 +25,7 @@ export const AdminContextProvider = ({ children }) => {
   }, []);
   const refreshToken = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/token');
+      const response = await axios.get(`${baseUrl}/token`);
       setToken(response.data.accessToken);
       const decode = jwtDecode(response.data.accessToken);
 
@@ -42,7 +43,7 @@ export const AdminContextProvider = ({ children }) => {
     async (config) => {
       const currentDate = new Date();
       if (expire * 1000 < currentDate.getTime()) {
-        const response = await axios.get('http://localhost:5000/token');
+        const response = await axios.get(`${baseUrl}/token`);
         config.headers.Authorization = `Bearer ${response.data.accessToken}`;
         setToken(response.data.accessToken);
         const decode = jwtDecode(response.data.accessToken);
@@ -62,10 +63,7 @@ export const AdminContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     try {
-      const res = await axios.post(
-        'http://localhost:5000/api/users/login',
-        inputs
-      );
+      const res = await axios.post(`${baseUrl}/api/users/login`, inputs);
       if (res.data.error) {
         setError(res.data.error);
       } else {
@@ -89,7 +87,7 @@ export const AdminContextProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-      const res = await axiosJWT.get('http://localhost:5000/api/users', {
+      const res = await axiosJWT.get(`${baseUrl}/api/users`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -108,15 +106,11 @@ export const AdminContextProvider = ({ children }) => {
     formData.append('userId', userId);
     formData.append('file', data.file);
     try {
-      const res = await axiosJWT.post(
-        'http://localhost:5000/api/create-news',
-        formData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axiosJWT.post(`${baseUrl}/api/create-news`, formData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(res.data.msg, {
         position: 'bottom-right',
         autoClose: 5000,
@@ -132,7 +126,7 @@ export const AdminContextProvider = ({ children }) => {
 
   const handleNews = async () => {
     try {
-      const res = await axiosJWT.get(`http://localhost:5000/api/get-news`, {
+      const res = await axiosJWT.get(`${baseUrl}/api/get-news`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -145,14 +139,11 @@ export const AdminContextProvider = ({ children }) => {
 
   const deleteNews = async (id) => {
     try {
-      const res = await axiosJWT.delete(
-        `http://localhost:5000/api/delete-news/${id}`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axiosJWT.delete(`${baseUrl}/api/delete-news/${id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       handleNews();
       toast.success(res.data.msg, {
         position: 'bottom-right',
@@ -168,14 +159,11 @@ export const AdminContextProvider = ({ children }) => {
 
   const singleNews = async (id) => {
     try {
-      const res = await axiosJWT.get(
-        `http://localhost:5000/api/get-news/${id}`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axiosJWT.get(`${baseUrl}/api/get-news/${id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       setSinglePost(res.data);
     } catch (error) {
       console.log(error);
@@ -191,7 +179,7 @@ export const AdminContextProvider = ({ children }) => {
     formData.append('file', data.file);
     try {
       const res = await axiosJWT.put(
-        `http://localhost:5000/api/update-news/${data.id}`,
+        `${baseUrl}/api/update-news/${data.id}`,
         formData,
         {
           headers: {

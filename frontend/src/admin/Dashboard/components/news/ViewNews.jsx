@@ -20,7 +20,7 @@ const ViewNews = () => {
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
         <Link
-          to='add-news'
+          to='/add-news'
           className='button is-success px-6 mb-6 has-text-white'>
           افزودن خبر
         </Link>
