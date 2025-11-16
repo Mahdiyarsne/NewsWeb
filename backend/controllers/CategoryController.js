@@ -17,7 +17,7 @@ export const createCategory = async (req, res) => {
     await Category.create({
       name: name,
     });
-    res.json({ msg: 'دسته بندی اضافه شد' });
+    res.json({ msg: 'دسته بندی افزوده شد' });
   } catch (error) {
     console.log(error);
   }
@@ -28,7 +28,7 @@ export const updateCategory = async (req, res) => {
   const name = req.body.name;
   try {
     await Category.update({ name: name }, { where: { id: req.params.id } });
-    res.json('دسته بندی به روز شد');
+    res.json({ msg: 'دسته بندی ابدیت شد' });
   } catch (error) {
     console.log(error);
   }
@@ -40,7 +40,7 @@ export const deleteCategory = async (req, res) => {
     await Category.destroy({
       where: { id: req.params.id },
     });
-    res.json('دسته بندی با موفقعیت حذف شد');
+    res.json({ msg: 'دسته بندی با موفقعیت حذف شد' });
   } catch (error) {
     console.log(error);
   }

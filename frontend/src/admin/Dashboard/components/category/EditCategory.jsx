@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Dashboard from '../../Dashboard';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { AdminContext } from '../../../context/context';
 
 const formSchema = Yup.object({
@@ -11,28 +12,39 @@ const formSchema = Yup.object({
     .required('وارد کردن دسته بندی الزامی است '),
 });
 
-const AddCategory = () => {
-  const { createCategory } = useContext(AdminContext);
-
+const EditCategory = () => {
+  const { updateCategory } = useContext(AdminContext);
+  const { state } = useLocation();
+  const { id } = useParams();
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: state.name,
+      id: id,
     },
     onSubmit: (vlaues) => {
-      createCategory(vlaues);
+      updateCategory(vlaues);
     },
     validationSchema: formSchema,
   });
 
   return (
     <Dashboard>
+      <div className='is-flex is-justify-content-end'>
+        <Link
+          to='/view-category'
+          className='button is-success px-6 mb-6 has-text-white'>
+          مشاهده دسته بندی
+        </Link>
+      </div>
+
       <form onSubmit={formik.handleSubmit}>
         <div className='field'>
-          <label className='label'>نام دسته بندی</label>
+          <label className='label'>ویرایش نام دسته بندی </label>
           <div className='control '>
             <input
               type='text'
               className='input has-background-white has-text-black'
+              defaultValue={state.name}
               onChange={formik.handleChange('name')}
               onBlur={formik.handleBlur('name')}
             />
@@ -44,7 +56,7 @@ const AddCategory = () => {
         <div className='field'>
           <div className='control'>
             <button className='button is-success px-6 has-text-white'>
-              ذخیره{' '}
+              ویرایش دسته بندی{' '}
             </button>
           </div>
         </div>
@@ -53,4 +65,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;

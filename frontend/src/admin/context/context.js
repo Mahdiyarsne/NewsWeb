@@ -17,7 +17,7 @@ export const AdminContextProvider = ({ children }) => {
   const [expire, SetExpire] = useState('');
   const [news, setNews] = useState([]);
   const [singlePost, setSinglePost] = useState([]);
-
+  const [category, setCategory] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -200,6 +200,91 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  //دسته بندی
+
+  const createCategory = async (value) => {
+    try {
+      const res = await axiosJWT.post(`${baseUrl}/api/create-category`, value, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/view-category');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCategory = async () => {
+    try {
+      const res = await axiosJWT.get(`${baseUrl}/api/get-category`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCategory(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCategory = async (values) => {
+    try {
+      const res = await axiosJWT.put(
+        `${baseUrl}/api/update-category/${values.id}`,
+        values,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/view-category');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteCategory = async (id) => {
+    try {
+      const res = await axiosJWT.delete(
+        `${baseUrl}/api/delete-category/${id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getCategory();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -215,6 +300,11 @@ export const AdminContextProvider = ({ children }) => {
         singleNews,
         singlePost,
         updateNews,
+        createCategory,
+        getCategory,
+        category,
+        updateCategory,
+        deleteCategory,
       }}>
       {children}
     </AdminContext.Provider>

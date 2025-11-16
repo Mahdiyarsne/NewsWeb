@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Dashboard from '../../Dashboard';
 import { Link } from 'react-router-dom';
 import './category.css';
+import { AdminContext } from '../../../context/context';
 const ViewCategory = () => {
+  const { getCategory, category, deleteCategory } = useContext(AdminContext);
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   return (
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
@@ -23,20 +30,30 @@ const ViewCategory = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>تست</td>
-            <td>
-              <Link
-                to=''
-                className='button is-info has-text-white'>
-                ویرایش
-              </Link>
-            </td>
-            <td>
-              <button className='button is-danger has-text-white'>حذف</button>{' '}
-            </td>
-          </tr>
+          {category &&
+            category.map((cat, index) => {
+              return (
+                <tr key={cat.id}>
+                  <td>{index + 1}</td>
+                  <td>{cat.name}</td>
+                  <td>
+                    <Link
+                      state={cat}
+                      to={`/edit-category/${cat.id}`}
+                      className='button is-info has-text-white'>
+                      ویرایش
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => deleteCategory(cat.id)}
+                      className='button is-danger has-text-white'>
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </Dashboard>

@@ -8,6 +8,7 @@ import AddNews from './admin/dashboard/components/news/AddNews';
 import EditNews from './admin/dashboard/components/news/EditNews';
 import ViewCategory from './admin/dashboard/components/category/ViewCategory';
 import AddCategory from './admin/dashboard/components/category/AddCategory';
+import EditCategory from './admin/dashboard/components/category/EditCategory';
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
         <Route
           path='/add-category'
           element={<AddCategory />}
+        />
+        <Route
+          path='/edit-category/:id'
+          element={<EditCategory />}
         />
       </Routes>
 
