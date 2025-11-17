@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createContext, useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { jwtDecode } from 'jwt-decode';
 import { baseUrl } from '../../utils/baseUrl';
@@ -280,6 +280,22 @@ export const AdminContextProvider = ({ children }) => {
         theme: 'colored',
       });
       getCategory();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //بخش ویدیو
+  const createVideo = async (data) => {
+    const formData = new FormData();
+    formData.append('file', data.file);
+    try {
+      const res = await axiosJWT.post(`${baseUrl}/api/create-video`, formData, {
+        headers: {
+          authorization: `Bearer $token`,
+        },
+      });
+      console.log(res);
     } catch (error) {
       console.log(error);
     }

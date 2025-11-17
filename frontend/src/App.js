@@ -9,6 +9,8 @@ import EditNews from './admin/dashboard/components/news/EditNews';
 import ViewCategory from './admin/dashboard/components/category/ViewCategory';
 import AddCategory from './admin/dashboard/components/category/AddCategory';
 import EditCategory from './admin/dashboard/components/category/EditCategory';
+import ViewVideo from './admin/dashboard/components/video/ViewVideo';
+import AddVideo from './admin/dashboard/components/video/AddVideo';
 
 function App() {
   return (
@@ -47,6 +49,16 @@ function App() {
         <Route
           path='/edit-category/:id'
           element={<EditCategory />}
+        />
+
+        {/* مسیرهای ویدیو */}
+        <Route
+          path='/view-video'
+          element={<ViewVideo />}
+        />
+        <Route
+          path='/add-video'
+          element={<AddVideo />}
         />
       </Routes>
 

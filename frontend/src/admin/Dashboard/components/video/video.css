@@ -1,0 +1,5 @@
+.table thead td,
+.table thead th {
+  color: rgb(42, 42, 42) !important;
+  padding-right: 110px;
+}

@@ -6,6 +6,7 @@ import logo from '../../../../assets/images/logo.png';
 const Sidebar = () => {
   const [showNews, setShowNews] = useState(false);
   const [showCategory, setShowCategory] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   return (
     <div className='sidebar'>
@@ -49,7 +50,17 @@ const Sidebar = () => {
           )}
         </li>
         <li>
-          <Link to=''>ویدیو</Link>
+          <span onClick={() => setShowVideo(!showVideo)}> ویدیو</span>
+          {showVideo && (
+            <ul>
+              <li>
+                <Link to='/add-video'>افزودن ویدیو</Link>
+              </li>
+              <li>
+                <Link to='/view-video'>مشاهده ویدیو</Link>
+              </li>
+            </ul>
+          )}
         </li>
         <li>
           <Link to=''>کاربران</Link>
