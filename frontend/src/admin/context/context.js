@@ -18,6 +18,8 @@ export const AdminContextProvider = ({ children }) => {
   const [news, setNews] = useState([]);
   const [singlePost, setSinglePost] = useState([]);
   const [category, setCategory] = useState([]);
+  const [errorVideo, setErrorVideo] = useState('');
+  const [allVideo, setAllVideo] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -292,10 +294,35 @@ export const AdminContextProvider = ({ children }) => {
     try {
       const res = await axiosJWT.post(`${baseUrl}/api/create-video`, formData, {
         headers: {
-          authorization: `Bearer $token`,
+          authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+      if (res.data.error) {
+        setErrorVideo(res.data.error);
+      }
+      if (res.data.msg) {
+        toast.success(res.data.msg, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          closeOnClick: false,
+          pauseOnHover: true,
+          theme: 'colored',
+        });
+        navigate('/view-video');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllVideo = async () => {
+    try {
+      const res = await axiosJWT.get(`${baseUrl}/api/get-video`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setAllVideo(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -321,6 +348,10 @@ export const AdminContextProvider = ({ children }) => {
         category,
         updateCategory,
         deleteCategory,
+        createVideo,
+        errorVideo,
+        getAllVideo,
+        allVideo,
       }}>
       {children}
     </AdminContext.Provider>

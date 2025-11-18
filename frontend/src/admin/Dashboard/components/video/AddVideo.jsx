@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Dashboard from '../../Dashboard';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { AdminContext } from '../../../context/context';
 
 const AddVideo = () => {
   const [file, setFile] = useState();
+  const { createVideo, errorVideo } = useContext(AdminContext);
 
   const formik = useFormik({
     initialValues: {
@@ -14,7 +16,7 @@ const AddVideo = () => {
       const data = {
         file: file,
       };
-      console.log(data);
+      createVideo(data);
     },
   });
 
@@ -28,6 +30,7 @@ const AddVideo = () => {
             className='input has-background-white'
             onChange={(e) => setFile(e.target.files[0])}
           />
+          <p className='help has-text-danger'>{errorVideo}</p>
         </div>
         <button
           type='submit'

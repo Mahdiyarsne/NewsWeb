@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Dashboard from '../../Dashboard';
 import './video.css';
 import { Link } from 'react-router-dom';
+import { AdminContext } from '../../../context/context';
 
 const ViewVideo = () => {
+  const { getAllVideo, allVideo } = useContext(AdminContext);
+  console.log(allVideo);
+  useEffect(() => {
+    getAllVideo();
+  }, []);
+
   return (
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
@@ -22,13 +29,25 @@ const ViewVideo = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>تست</td>
-            <td>
-              <button className='button is-danger has-text-white'>حذف</button>
-            </td>
-          </tr>
+          {allVideo &&
+            allVideo.map((video, index) => {
+              return (
+                <tr key={video.id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <video
+                      src={video.url}
+                      width='200'
+                      controls></video>
+                  </td>
+                  <td>
+                    <button className='button is-danger has-text-white'>
+                      حذف
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </Dashboard>
