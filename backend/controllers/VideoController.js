@@ -53,13 +53,13 @@ export const getSingleVideo = async (req, res) => {
 //حذف ویدیو از طریق ایدی
 export const deleteVideo = async (req, res) => {
   const video = await Video.findOne({ where: { id: req.params.id } });
-  if (!video) return res.status(404).json({ msg: 'ویدیو یافت نشد' });
+  if (!video) return res.json({ msg: 'ویدیو یافت نشد' });
 
   try {
     const filePath = `./public/video/${video.video}`;
     fs.unlinkSync(filePath);
     await video.destroy({ where: { id: req.params.id } });
-    res.status(201).json({ msg: 'ویدیو با موفقعیت حذف شد  ' });
+    res.json({ msg: 'ویدیو با موفقعیت حذف شد  ' });
   } catch (error) {
     console.log(error);
   }

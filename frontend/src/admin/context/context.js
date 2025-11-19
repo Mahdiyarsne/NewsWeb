@@ -288,6 +288,7 @@ export const AdminContextProvider = ({ children }) => {
   };
 
   //بخش ویدیو
+
   const createVideo = async (data) => {
     const formData = new FormData();
     formData.append('file', data.file);
@@ -328,6 +329,24 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const deleteVideo = async (id) => {
+    try {
+      const res = await axiosJWT.delete(`${baseUrl}/api/delete-video/${id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getAllVideo();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -352,6 +371,7 @@ export const AdminContextProvider = ({ children }) => {
         errorVideo,
         getAllVideo,
         allVideo,
+        deleteVideo,
       }}>
       {children}
     </AdminContext.Provider>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { AdminContext } from '../../../context/context';
 
 const ViewVideo = () => {
-  const { getAllVideo, allVideo } = useContext(AdminContext);
+  const { getAllVideo, allVideo, deleteVideo } = useContext(AdminContext);
   console.log(allVideo);
   useEffect(() => {
     getAllVideo();
@@ -41,7 +41,9 @@ const ViewVideo = () => {
                       controls></video>
                   </td>
                   <td>
-                    <button className='button is-danger has-text-white'>
+                    <button
+                      className='button is-danger has-text-white'
+                      onClick={() => deleteVideo(video.id)}>
                       حذف
                     </button>
                   </td>
