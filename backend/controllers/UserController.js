@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
   const { name, email, password, confPassword, isAdmin } = req.body;
 
   if (password !== confPassword) {
-    res.json({ message: 'پسورد و تکرار آن با هم مطابق ندارد.' });
+    res.json({ error: 'پسورد و تکرار آن با هم مطابق ندارد.' });
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -36,7 +36,7 @@ export const registerUser = async (req, res) => {
   try {
     const found = await Users.findOne({ where: { email: email } });
     if (found) {
-      return res.json({ message: 'ایمیل توسط  کاربر دیگری گرفته شده است' });
+      return res.json({ error: 'ایمیل توسط  کاربر دیگری گرفته شده است' });
     }
     await Users.create({
       name: name,

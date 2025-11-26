@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Dashboard from '../../Dashboard';
 import { Link } from 'react-router-dom';
 import './user.css';
+import { AdminContext } from '../../../context/context';
 
 const ViewUsers = () => {
+  const { getAllUsers, users } = useContext(AdminContext);
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   return (
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
@@ -28,22 +35,28 @@ const ViewUsers = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>مهدی یار</td>
-            <td>test@gmail.com</td>
-            <td>مدیر</td>
-            <td>
-              <Link
-                className='button is-info has-text-white'
-                to='/'>
-                ویرایش
-              </Link>
-            </td>
-            <td>
-              <button className='button is-danger has-text-white'>حذف</button>
-            </td>
-          </tr>
+          {users?.map((user, index) => {
+            return (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.isAdmin ? 'مدیر' : 'نویسنده'}</td>
+                <td>
+                  <Link
+                    className='button is-info has-text-white'
+                    to='/'>
+                    ویرایش
+                  </Link>
+                </td>
+                <td>
+                  <button className='button is-danger has-text-white'>
+                    حذف
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Dashboard>

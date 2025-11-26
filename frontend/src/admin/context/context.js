@@ -20,6 +20,8 @@ export const AdminContextProvider = ({ children }) => {
   const [category, setCategory] = useState([]);
   const [errorVideo, setErrorVideo] = useState('');
   const [allVideo, setAllVideo] = useState([]);
+  const [registerError, setRegisterError] = useState('');
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +65,31 @@ export const AdminContextProvider = ({ children }) => {
     }
   );
 
+  const register = async (inputs) => {
+    try {
+      const res = await axiosJWT.post(`${baseUrl}/api/users/register`, inputs, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.error) {
+        setRegisterError(res.data.error);
+      } else {
+        toast.success(res.data.message, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          closeOnClick: false,
+          pauseOnHover: true,
+          theme: 'colored',
+        });
+        navigate('/view-users');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const login = async (inputs) => {
     try {
       const res = await axios.post(`${baseUrl}/api/users/login`, inputs);
@@ -94,7 +121,7 @@ export const AdminContextProvider = ({ children }) => {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log(res);
+      setUsers(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -372,6 +399,9 @@ export const AdminContextProvider = ({ children }) => {
         getAllVideo,
         allVideo,
         deleteVideo,
+        register,
+        registerError,
+        users,
       }}>
       {children}
     </AdminContext.Provider>

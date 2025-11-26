@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Dashboard from '../../Dashboard';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
+import { AdminContext } from '../../../context/context';
 
 const formSchema = Yup.object({
   name: Yup.string()
@@ -23,6 +25,8 @@ const formSchema = Yup.object({
 });
 
 const AddUsers = () => {
+  const { register, registerError } = useContext(AdminContext);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -32,13 +36,24 @@ const AddUsers = () => {
       isAdmin: '',
     },
     onSubmit: (values) => {
-      console.log(values);
+      register(values);
     },
     validationSchema: formSchema,
   });
 
   return (
     <Dashboard>
+      <div className='is-flex is-justify-content-end'>
+        <Link
+          to='/view-users'
+          className='button is-success px-6 mb-6 has-text-white'>
+          مشاهده کاربران
+        </Link>
+      </div>
+
+      <div className='is-flex'>
+        <p className='help has-text-danger mb-5 is-size-5'>{registerError}</p>
+      </div>
       <form onSubmit={formik.handleSubmit}>
         <div className='field'>
           <label className='label'>نام و نام خانوادگی</label>
