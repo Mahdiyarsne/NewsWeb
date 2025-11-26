@@ -8,8 +8,8 @@ const ViewUsers = () => {
     <Dashboard>
       <div className='is-flex is-justify-content-end'>
         <Link
-          to='/add-user'
-          className='button px-6 is-success mb-6'>
+          to='/add-users'
+          className='button px-6 is-success mb-6 has-text-white'>
           افزودن کاربر
         </Link>
       </div>
@@ -35,13 +35,13 @@ const ViewUsers = () => {
             <td>مدیر</td>
             <td>
               <Link
-                className='button is-info'
+                className='button is-info has-text-white'
                 to='/'>
                 ویرایش
               </Link>
             </td>
             <td>
-              <button className='button is-danger'>حذف</button>
+              <button className='button is-danger has-text-white'>حذف</button>
             </td>
           </tr>
         </tbody>

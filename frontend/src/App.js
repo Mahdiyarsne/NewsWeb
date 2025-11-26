@@ -11,6 +11,7 @@ import EditCategory from './admin/dashboard/components/category/EditCategory';
 import ViewVideo from './admin/dashboard/components/video/ViewVideo';
 import AddVideo from './admin/dashboard/components/video/AddVideo';
 import ViewUsers from './admin/dashboard/components/users/ViewUsers';
+import AddUsers from './admin/dashboard/components/users/AddUsers';
 
 function App() {
   return (
@@ -65,6 +66,11 @@ function App() {
         <Route
           path='/view-users'
           element={<ViewUsers />}
+        />
+
+        <Route
+          path='/add-users'
+          element={<AddUsers />}
         />
       </Routes>
 

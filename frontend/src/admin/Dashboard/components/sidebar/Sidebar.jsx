@@ -68,7 +68,7 @@ const Sidebar = () => {
           {showUser && (
             <ul>
               <li>
-                <Link to='/add-category'>افزودن کاربر</Link>
+                <Link to='/add-users'>افزودن کاربر</Link>
               </li>
               <li>
                 <Link to='/view-users'>مشاهده کاربران</Link>
