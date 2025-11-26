@@ -1,4 +1,8 @@
 .table tbody tr td {
   color: rgb(42, 42, 42);
-  padding-right: 115px;
+  padding-right: 150px !important;
+}
+
+.table tbody tr:last-child td {
+  padding-right: 150px !important;
 }

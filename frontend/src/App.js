@@ -1,6 +1,5 @@
 import Login from './admin/auth/Login';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './admin/dashboard/Dashboard';
 import { ToastContainer } from 'react-toastify';
 import ViewNews from './admin/dashboard/components/news/ViewNews';
 import Main from './admin/dashboard/components/main/Main';
@@ -11,6 +10,7 @@ import AddCategory from './admin/dashboard/components/category/AddCategory';
 import EditCategory from './admin/dashboard/components/category/EditCategory';
 import ViewVideo from './admin/dashboard/components/video/ViewVideo';
 import AddVideo from './admin/dashboard/components/video/AddVideo';
+import ViewUsers from './admin/dashboard/components/users/ViewUsers';
 
 function App() {
   return (
@@ -59,6 +59,12 @@ function App() {
         <Route
           path='/add-video'
           element={<AddVideo />}
+        />
+
+        {/* مسیره های کاربران */}
+        <Route
+          path='/view-users'
+          element={<ViewUsers />}
         />
       </Routes>
 

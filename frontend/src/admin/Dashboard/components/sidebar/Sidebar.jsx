@@ -7,6 +7,7 @@ const Sidebar = () => {
   const [showNews, setShowNews] = useState(false);
   const [showCategory, setShowCategory] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [showUser, setShowUser] = useState(false);
 
   return (
     <div className='sidebar'>
@@ -63,7 +64,17 @@ const Sidebar = () => {
           )}
         </li>
         <li>
-          <Link to=''>کاربران</Link>
+          <span onClick={() => setShowUser(!showUser)}> کاربران</span>
+          {showUser && (
+            <ul>
+              <li>
+                <Link to='/add-category'>افزودن کاربر</Link>
+              </li>
+              <li>
+                <Link to='/view-users'>مشاهده کاربران</Link>
+              </li>
+            </ul>
+          )}
         </li>
         <li>
           <Link to=''>نظرات</Link>

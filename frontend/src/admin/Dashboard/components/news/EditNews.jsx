@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../../Dashboard';
-import './news.css';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { AdminContext } from '../../../context/context';

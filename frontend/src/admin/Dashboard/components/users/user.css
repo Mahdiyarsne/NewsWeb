@@ -1,0 +1,9 @@
+.table thead td,
+.table thead th {
+  color: #2a2a2a !important;
+  padding-right: 20px !important;
+}
+
+.table tbody tr:last-child td {
+  padding-right: 50px !important;
+}

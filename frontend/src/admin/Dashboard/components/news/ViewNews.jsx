@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../../Dashboard';
 import { Link } from 'react-router-dom';
-import './news.css';
 import { AdminContext } from '../../../context/context';
 
 const ViewNews = () => {
@@ -46,7 +45,7 @@ const ViewNews = () => {
                 <td>
                   <img
                     src={item.url}
-                    width='80'
+                    width='100'
                     alt=''
                   />
                 </td>

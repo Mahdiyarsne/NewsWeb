@@ -4,6 +4,7 @@ import './video.css';
 import { Link } from 'react-router-dom';
 import { AdminContext } from '../../../context/context';
 
+import './video.css';
 const ViewVideo = () => {
   const { getAllVideo, allVideo, deleteVideo } = useContext(AdminContext);
   console.log(allVideo);
