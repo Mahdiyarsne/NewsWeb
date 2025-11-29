@@ -128,7 +128,9 @@ export const Logout = async (req, res) => {
         message: 'توکن یافت نشد',
       });
 
-    const user = await Users.findOne({ resresh_token: refreshToken });
+    const user = await Users.findOne({
+      where: { resresh_token: refreshToken },
+    });
     if (!user) return res.json({ error: 'کاربر یافت نشد' });
     const clr = null;
     await Users.update(
