@@ -420,6 +420,26 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const Logout = async () => {
+    try {
+      const res = await axiosJWT.delete(`${baseUrl}/api/users/logout`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(res.data.message, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -450,6 +470,7 @@ export const AdminContextProvider = ({ children }) => {
         users,
         updateUser,
         deleteUser,
+        Logout,
       }}>
       {children}
     </AdminContext.Provider>

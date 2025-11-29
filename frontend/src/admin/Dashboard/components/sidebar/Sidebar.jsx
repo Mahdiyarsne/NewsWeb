@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
 import logo from '../../../../assets/images/logo.png';
+import { AdminContext } from '../../../context/context';
 
 const Sidebar = () => {
   const [showNews, setShowNews] = useState(false);
   const [showCategory, setShowCategory] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [showUser, setShowUser] = useState(false);
+  const { Logout } = useContext(AdminContext);
 
   return (
     <div className='sidebar'>
@@ -80,7 +82,7 @@ const Sidebar = () => {
           <Link to=''>نظرات</Link>
         </li>
         <li>
-          <Link to=''>خروج</Link>
+          <span onClick={Logout}>خروج</span>
         </li>
       </ul>
     </div>

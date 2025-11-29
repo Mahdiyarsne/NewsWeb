@@ -144,7 +144,7 @@ export const Logout = async (req, res) => {
       }
     );
     res.clearCookie('refreshToken');
-    res.status(200).json({
+    res.json({
       message: 'کاربر با موفقعیت خارج شد',
     });
   } catch (error) {
