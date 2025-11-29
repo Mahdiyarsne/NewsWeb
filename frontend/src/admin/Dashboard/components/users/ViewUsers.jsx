@@ -5,7 +5,7 @@ import './user.css';
 import { AdminContext } from '../../../context/context';
 
 const ViewUsers = () => {
-  const { getAllUsers, users } = useContext(AdminContext);
+  const { getAllUsers, users, deleteUser } = useContext(AdminContext);
 
   useEffect(() => {
     getAllUsers();
@@ -44,15 +44,26 @@ const ViewUsers = () => {
                 <td>{user.isAdmin ? 'مدیر' : 'نویسنده'}</td>
                 <td>
                   <Link
+                    state={user}
                     className='button is-info has-text-white'
-                    to='/'>
+                    to={`/edit-users/${user.id}`}>
                     ویرایش
                   </Link>
                 </td>
                 <td>
-                  <button className='button is-danger has-text-white'>
-                    حذف
-                  </button>
+                  {user.isAdmin ? (
+                    <button
+                      className='button is-danger has-text-white'
+                      disabled>
+                      حذف نمیشود
+                    </button>
+                  ) : (
+                    <button
+                      className='button is-danger has-text-white'
+                      onClick={() => deleteUser(user.id)}>
+                      حذف
+                    </button>
+                  )}
                 </td>
               </tr>
             );

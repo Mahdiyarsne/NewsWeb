@@ -374,6 +374,52 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  //بخش کاربر
+
+  const updateUser = async (value) => {
+    try {
+      const res = await axiosJWT.put(
+        `${baseUrl}/api/users/${value.id}`,
+        value,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.massage, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navigate('/view-users');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      const res = await axiosJWT.delete(`${baseUrl}/api/users/${id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(res.data.massage, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getAllUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -402,6 +448,8 @@ export const AdminContextProvider = ({ children }) => {
         register,
         registerError,
         users,
+        updateUser,
+        deleteUser,
       }}>
       {children}
     </AdminContext.Provider>

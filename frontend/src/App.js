@@ -12,6 +12,7 @@ import ViewVideo from './admin/dashboard/components/video/ViewVideo';
 import AddVideo from './admin/dashboard/components/video/AddVideo';
 import ViewUsers from './admin/dashboard/components/users/ViewUsers';
 import AddUsers from './admin/dashboard/components/users/AddUsers';
+import EditUsers from './admin/dashboard/components/users/EditUsers';
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
         <Route
           path='/add-users'
           element={<AddUsers />}
+        />
+        <Route
+          path='/edit-users/:id'
+          element={<EditUsers />}
         />
       </Routes>
 
