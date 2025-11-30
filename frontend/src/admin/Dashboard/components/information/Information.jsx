@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './information.css';
 import { Link } from 'react-router-dom';
-import profile from '../../../../assets/images/profile.png';
+import profileImg from '../../../../assets/images/profile.png';
 import {
   BsFillCapslockFill,
   BsFillPersonPlusFill,
@@ -10,7 +10,7 @@ import {
 import { AdminContext } from '../../../context/context';
 
 const Information = () => {
-  const { userId } = useContext(AdminContext);
+  const { userId, profilePhoto } = useContext(AdminContext);
 
   return (
     <div className='infromation'>
@@ -27,7 +27,7 @@ const Information = () => {
             <Link to={`/update-profile/${userId}`}>
               <img
                 className='image profile-photo'
-                src={profile}
+                src={profilePhoto ? profilePhoto : profileImg}
                 alt=''
               />
             </Link>

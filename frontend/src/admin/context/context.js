@@ -22,10 +22,14 @@ export const AdminContextProvider = ({ children }) => {
   const [allVideo, setAllVideo] = useState([]);
   const [registerError, setRegisterError] = useState('');
   const [users, setUsers] = useState([]);
+  const [profileError, setProfileError] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState('');
+  const [profileName, setProfileName] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     refreshToken();
+    profile();
   }, []);
   const refreshToken = async () => {
     try {
@@ -109,6 +113,7 @@ export const AdminContextProvider = ({ children }) => {
         setToken(res.data.accessToken);
         setAdmin(res.data.isAdmin);
       }
+      profile();
     } catch (error) {
       console.log(error);
     }
@@ -444,7 +449,43 @@ export const AdminContextProvider = ({ children }) => {
 
   const updateProfile = async (data) => {
     try {
-      console.log(data);
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('password', data.password);
+      formData.append('confPassword', data.confPassword);
+      formData.append('id', data.id);
+      formData.append('file', data.file);
+
+      const res = await axiosJWT.put(
+        `${baseUrl}/api/users/profile/${data.id}`,
+        formData,
+        { headers: { authorization: `Bearer ${token}` } }
+      );
+      if (res.data.error) {
+        setProfileError(res.data.error);
+      } else {
+        toast.success(res.data.message, {
+          position: 'bottom-right',
+          autoClose: 5000,
+          closeOnClick: false,
+          pauseOnHover: true,
+          theme: 'colored',
+        });
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //دریافت پروفایل
+  const profile = async () => {
+    try {
+      const res = await axiosJWT.get(`${baseUrl}/api/users/profile`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      setProfilePhoto(res.data.url);
+      setProfileName(res.data.name);
     } catch (error) {
       console.log(error);
     }
@@ -483,6 +524,9 @@ export const AdminContextProvider = ({ children }) => {
         Logout,
         userId,
         updateProfile,
+        profileError,
+        profileName,
+        profilePhoto,
       }}>
       {children}
     </AdminContext.Provider>

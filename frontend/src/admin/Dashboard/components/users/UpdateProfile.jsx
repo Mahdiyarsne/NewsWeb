@@ -21,7 +21,7 @@ const formSchema = Yup.object({
 });
 
 const UpdateProfile = () => {
-  const { UpdateProfile } = useContext(AdminContext);
+  const { updateProfile, profileError } = useContext(AdminContext);
   const { id } = useParams();
   const [file, setFile] = useState([]);
   const [preview, setPreview] = useState('');
@@ -48,7 +48,7 @@ const UpdateProfile = () => {
         id: id,
         file: file,
       };
-      UpdateProfile(data);
+      updateProfile(data);
     },
     validationSchema: formSchema,
   });
@@ -109,6 +109,7 @@ const UpdateProfile = () => {
               className='input has-text-black has-background-white '
               onChange={loadImage}
             />
+
             {preview ? (
               <figure className='mt-3'>
                 <img
@@ -121,6 +122,9 @@ const UpdateProfile = () => {
               ''
             )}
           </div>
+        </div>
+        <div className='is-flex'>
+          <p className='help has-text-danger mb-5 is-size-5'>{profileError}</p>
         </div>
         <div className='field'>
           <div className='control'>
