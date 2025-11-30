@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './information.css';
 import { Link } from 'react-router-dom';
 import profile from '../../../../assets/images/profile.png';
@@ -7,8 +7,11 @@ import {
   BsFillPersonPlusFill,
   BsChatDots,
 } from 'react-icons/bs';
+import { AdminContext } from '../../../context/context';
 
 const Information = () => {
+  const { userId } = useContext(AdminContext);
+
   return (
     <div className='infromation'>
       <div className='view-web is-flex is-align-items-center is-justify-content-space-between mb-5'>
@@ -21,7 +24,7 @@ const Information = () => {
         </div>
         <div className='view-profile'>
           <span>
-            <Link to=''>
+            <Link to={`/update-profile/${userId}`}>
               <img
                 className='image profile-photo'
                 src={profile}

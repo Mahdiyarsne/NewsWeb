@@ -440,6 +440,16 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  //به روزرسانی پروفایل
+
+  const updateProfile = async (data) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -471,6 +481,8 @@ export const AdminContextProvider = ({ children }) => {
         updateUser,
         deleteUser,
         Logout,
+        userId,
+        updateProfile,
       }}>
       {children}
     </AdminContext.Provider>
