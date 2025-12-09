@@ -14,11 +14,18 @@ import ViewUsers from './admin/dashboard/components/users/ViewUsers';
 import AddUsers from './admin/dashboard/components/users/AddUsers';
 import EditUsers from './admin/dashboard/components/users/EditUsers';
 import UpdateProfile from './admin/dashboard/components/users/UpdateProfile';
+import HomeScreen from './pages/HomeScreen';
 
 function App() {
   return (
     <>
       <Routes>
+        <Route
+          path='/'
+          element={<HomeScreen />}
+        />
+
+        {/* مسیره های پنل آدمین */}
         <Route
           path='/administrator'
           element={<Login />}
