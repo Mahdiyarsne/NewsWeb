@@ -17,6 +17,10 @@
   text-decoration: none !important;
 }
 
+a {
+  color: rgb(36, 36, 36) !important;
+}
+
 button {
   font-family: 'IRANSansWeb' !important;
 }

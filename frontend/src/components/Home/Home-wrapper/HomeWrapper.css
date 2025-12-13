@@ -1,0 +1,48 @@
+.right-side-top {
+  position: relative;
+}
+
+.right-side-top img {
+  border-radius: 5px;
+  width: 250px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-info {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.post-info .post-cat {
+  background: rgb(43, 88, 194);
+  display: inline;
+  padding: 3px 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.post-info .post-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 8px 0;
+}
+
+.post-info .post-date {
+  color: white;
+  font-size: 15px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  width: calc(100% - 62px);
+  height: 100%;
+  border-radius: 5px;
+}
