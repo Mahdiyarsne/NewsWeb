@@ -4,6 +4,7 @@
 
 .whats-news {
   height: 100%;
+  padding: 0 30px;
   border-radius: 10px;
 }
 
@@ -59,6 +60,12 @@
 
 .whats-news-post
   .whats-news-post-item::first-child
+  .whats-news-post-item-description {
+  padding-right: 0;
+}
+
+.whats-news-post
+  .whats-news-post-item::first-child
   .whats-news-post-item-description
   p {
   overflow-y: hidden;
@@ -70,4 +77,20 @@
   max-width: 100%;
   color: rgb(36, 36, 36);
   text-align: justify;
+}
+
+.sendnews {
+  height: 350px;
+}
+
+@media screen and (max-width: 760px) {
+  .whats-news-post .whats-news-post-item {
+    width: 100%;
+    padding-right: 0;
+    margin-top: 15px;
+  }
+
+  .whats-news-post .whats-news-post-item:first-child {
+    width: 100%;
+  }
 }

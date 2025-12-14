@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import 'bulma/css/bulma.css';
+import 'bulma/css/bulma.min.css';
 import { AdminContextProvider } from './admin/context/context';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';

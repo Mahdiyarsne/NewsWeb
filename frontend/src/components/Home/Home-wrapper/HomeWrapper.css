@@ -42,7 +42,23 @@
   top: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.4);
-  width: calc(100% - 62px);
-  height: 100%;
+  width: calc(100% - 42px);
+  height: 95%;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 760px) {
+  .right-side-top img {
+    width: 100%;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: calc(100% - 10px);
+    border-radius: 5px;
+  }
 }

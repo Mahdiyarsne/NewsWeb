@@ -20,7 +20,7 @@ const WhatsNews = () => {
             />
           </div>
           <div className='column is-three-quarter-widescreen is-justify-content-center'>
-            <div className='whats-news has-text-white py-5'>
+            <div className='whats-news has-background-white py-6'>
               <div className='whats-news-title is-flex is-justify-content-space-between is-aling-items-center'>
                 <div className='whats-news-nav'>
                   <ul className='is-flex'>
