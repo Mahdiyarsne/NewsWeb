@@ -1,0 +1,37 @@
+.popular-img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.num-views {
+  position: absolute;
+  background: rgb(36, 36, 36);
+  top: 20px;
+  left: -30px;
+  border-radius: 0 25px 25px 0;
+  color: #fff;
+  width: 70px;
+  transition: all 0.3s ease-in-out;
+}
+
+.popular-img:hover .num-views {
+  left: 0;
+}
+
+.num-views span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px;
+  font-size: 18px;
+}
+
+.num-views svg {
+  margin-left: 8px;
+}
+
+.ads img {
+  object-fit: cover;
+}
