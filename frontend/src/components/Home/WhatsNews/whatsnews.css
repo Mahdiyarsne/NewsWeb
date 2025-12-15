@@ -83,6 +83,12 @@
   height: 350px;
 }
 
+@media screen and (max-width: 1215px) {
+  #whats-news {
+    height: 1000px;
+  }
+}
+
 @media screen and (max-width: 760px) {
   .whats-news-post .whats-news-post-item {
     width: 100%;

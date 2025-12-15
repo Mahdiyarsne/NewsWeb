@@ -4,6 +4,7 @@ import Navbar from '../components/Home/Nabar/Navbar';
 import HomeWrapper from '../components/Home/Home-wrapper/HomeWrapper';
 import WhatsNews from '../components/Home/WhatsNews/WhatsNews';
 import PopularNews from '../components/Home/Popular/PopularNews';
+import Footer from '../components/Home/Footer/Footer';
 
 const HomeScreen = () => {
   return (
@@ -13,6 +14,7 @@ const HomeScreen = () => {
       <HomeWrapper />
       <WhatsNews />
       <PopularNews />
+      <Footer />
     </div>
   );
 };

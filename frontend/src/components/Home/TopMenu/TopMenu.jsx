@@ -8,16 +8,17 @@ const TopMenu = () => {
     <>
       <div className='top-menu has-background-black py-2'>
         <div className='container'>
-          <div className='columns'>
-            <div className='column is-two-thirds is-flex is-justify-content-start'>
-              <span className='has-text-white is-flex ia-align-align-items-center'>
-                <BsReception4 className='ml-2 has-text-danger' /> برقراری ارتباط
-                :example@gmail.com
+          <div className='columns is-mobile'>
+            <div className='column is-flex is-justify-content-start'>
+              <span className='has-text-white is-flex is-align-items-center is-flex-wrap-nowrap'>
+                <BsReception4 className='ml-2 has-text-danger' />
+                <span className='is-hidden-mobile'>برقراری ارتباط :</span>
+                <span>example@gmail.com</span>
               </span>
             </div>
-            <div className='column is-one-third is-flex is-justify-content-end'>
-              <span className='has-text-white is-flex ia-align-align-items-center'>
-                <BsFillTelephoneFill className='ml-2 has-text-danger is-size-5' />{' '}
+            <div className='column is-flex is-justify-content-end'>
+              <span className='has-text-white is-flex is-align-items-center is-flex-wrap-nowrap'>
+                <BsFillTelephoneFill className='ml-2 has-text-danger is-size-5' />
                 0915656353
               </span>
             </div>

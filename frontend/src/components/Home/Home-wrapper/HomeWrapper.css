@@ -47,6 +47,33 @@
   border-radius: 5px;
 }
 
+@media screen and (max-width: 1407px) {
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: calc(100% - 10px);
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 1212px) {
+  .right-side-top img {
+    width: 100%;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: calc(100% - 10px);
+    border-radius: 5px;
+  }
+}
+
 @media screen and (max-width: 760px) {
   .right-side-top img {
     width: 100%;
