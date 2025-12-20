@@ -9,13 +9,13 @@ const Navbar = () => {
         <div className='nav'>
           <ul className='is-flex nav-ul'>
             <li>
-              <Link>خانه</Link>
+              <Link to='/'>خانه</Link>
             </li>
             <li>
-              <Link>درباره ما</Link>
+              <Link to='/about-us'>درباره ما</Link>
             </li>
             <li>
-              <Link>تماس با ما</Link>
+              <Link to='/contact-us'>تماس با ما</Link>
             </li>
           </ul>
         </div>

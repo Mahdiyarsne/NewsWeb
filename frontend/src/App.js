@@ -15,14 +15,25 @@ import AddUsers from './admin/dashboard/components/users/AddUsers';
 import EditUsers from './admin/dashboard/components/users/EditUsers';
 import UpdateProfile from './admin/dashboard/components/users/UpdateProfile';
 import HomeScreen from './pages/HomeScreen';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
     <>
       <Routes>
+        {/* مسیرهای صفحه اصلی */}
         <Route
           path='/'
           element={<HomeScreen />}
+        />
+        <Route
+          path='/about-us'
+          element={<AboutUs />}
+        />
+        <Route
+          path='/contact-us'
+          element={<ContactUs />}
         />
 
         {/* مسیره های پنل آدمین */}
