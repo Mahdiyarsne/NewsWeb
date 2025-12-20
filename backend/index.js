@@ -17,7 +17,7 @@ const port = 5000;
 dotenv.config();
 
 //midelware
-app.use(cors({credentials:true,origin:"http://localhost:3000"}))
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
@@ -44,7 +44,7 @@ app.use(sendEmailRoutes);
 try {
   await db.authenticate();
   console.log('database connected');
-  //await db.sync();
+  await db.sync();
 } catch (error) {
   console.log(error);
 }
