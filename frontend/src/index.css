@@ -32,6 +32,10 @@ button {
 .container {
   padding: 0 50px;
 }
+body .has-background-danger,
+#root .has-background-danger {
+  background: #c00 !important;
+}
 
 @media screen and(max-width:600px) {
   .container {

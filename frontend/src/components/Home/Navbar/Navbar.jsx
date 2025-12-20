@@ -4,7 +4,7 @@ import './navbar.css';
 
 const Navbar = () => {
   return (
-    <header className='has-background-danger py-5 my-4'>
+    <header className='has-background-danger py-3 my-4'>
       <div className='container'>
         <div className='nav'>
           <ul className='is-flex nav-ul'>

@@ -17,6 +17,7 @@ import UpdateProfile from './admin/dashboard/components/users/UpdateProfile';
 import HomeScreen from './pages/HomeScreen';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import Detail from './pages/Detail';
 
 function App() {
   return (
@@ -34,6 +35,11 @@ function App() {
         <Route
           path='/contact-us'
           element={<ContactUs />}
+        />
+
+        <Route
+          path='/detail/:id'
+          element={<Detail />}
         />
 
         {/* مسیره های پنل آدمین */}
