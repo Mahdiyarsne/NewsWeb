@@ -7,3 +7,8 @@
 .table tbody tr:last-child td {
   padding-right: 50px !important;
 }
+
+.table th:not([align]) {
+  text-align: var(--bulma-table-cell-text-align);
+  padding-left: 20px !important;
+}

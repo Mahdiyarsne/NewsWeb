@@ -21,7 +21,7 @@ const ViewCategory = () => {
       </div>
 
       <table className='table is-fullwidth has-background-white '>
-        <thead className='is-fullwidth'>
+        <thead className='is-fullwidth '>
           <tr>
             <th>شماره</th>
             <th>نام</th>

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import image from '../../../assets/images/1.jpeg';
-import vid from '../../../assets/video/newsvideo.mp4';
 import './HomeWrapper.css';
+import { HomeContext } from '../../../context/context';
+import Loader from '../../Loading/Loader';
 
 const HomeWrapper = () => {
+  const { videos, loading, error } = useContext(HomeContext);
+
   return (
     <div className='home-wrapper'>
       <div className='container'>
@@ -30,11 +33,18 @@ const HomeWrapper = () => {
           </div>
           <div className='column is-three-quarters-widescreen is-full-tablet'>
             <div className='post-left-side'>
-              <video
-                src={vid}
-                controls
-                width='100%'
-                height='100%'></video>
+              {loading ? (
+                <div className='has-text-centered'>
+                  {' '}
+                  <Loader />
+                </div>
+              ) : (
+                <video
+                  src={videos.url}
+                  controls
+                  width='100%'
+                  height='100%'></video>
+              )}
             </div>
           </div>
         </div>

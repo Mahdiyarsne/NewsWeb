@@ -6,6 +6,7 @@ import 'bulma/css/bulma.min.css';
 import { AdminContextProvider } from './admin/context/context';
 import axios from 'axios';
 import { BrowserRouter } from 'react-router-dom';
+import { HomeContextProvider } from './context/context';
 
 axios.defaults.withCredentials = true;
 
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AdminContextProvider>
-        <App />
+        <HomeContextProvider>
+          <App />
+        </HomeContextProvider>
       </AdminContextProvider>
     </BrowserRouter>
   </React.StrictMode>
