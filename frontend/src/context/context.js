@@ -7,6 +7,12 @@ import {
 } from './constants/videoConstants';
 import axios from 'axios';
 import { baseUrl } from '../utils/baseUrl';
+import { lastPostReducer } from './reducers/reducerLastPost';
+import {
+  LAST_POST_FAIL,
+  LAST_POST_REQUEST,
+  LAST_POST_SUCCESS,
+} from './constants/lastPostConstants';
 
 export const HomeContext = createContext();
 const INITIAL_STATE = {
@@ -15,11 +21,20 @@ const INITIAL_STATE = {
   videos: [],
 };
 
+const INITIAL_STATE_LAST_POST = {
+  loading: true,
+  error: '',
+  lastPosts: [],
+};
 export const HomeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, INITIAL_STATE);
-
+  const [stateLastPost, lastPostDispatch] = useReducer(
+    lastPostReducer,
+    INITIAL_STATE_LAST_POST
+  );
   useEffect(() => {
     LoadVideo();
+    LoadLastPost();
   }, []);
 
   const LoadVideo = async () => {
@@ -33,12 +48,29 @@ export const HomeContextProvider = ({ children }) => {
     }
   };
 
+  const LoadLastPost = async () => {
+    try {
+      lastPostDispatch({ type: LAST_POST_REQUEST });
+      const { data } = await axios.get(`${baseUrl}/api/news/last-news`);
+      lastPostDispatch({ type: LAST_POST_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error);
+      lastPostDispatch({
+        type: LAST_POST_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
   return (
     <HomeContext.Provider
       value={{
         loading: state.loading,
         error: state.error,
         videos: state.videos,
+        loadingLastPost: stateLastPost.loading,
+        errorLastPost: stateLastPost.error,
+        lastPosts: stateLastPost.lastPosts,
       }}>
       {children}
     </HomeContext.Provider>

@@ -11,6 +11,7 @@
     "bluma": "^2.0.16",
     "bulma": "^1.0.4",
     "formik": "^2.4.6",
+    "jalali-moment": "^3.3.11",
     "jwt-decode": "^4.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
