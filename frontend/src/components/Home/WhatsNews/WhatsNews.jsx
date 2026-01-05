@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import sendNews from '../../../assets/images/send-news.jpg';
-import img from '../../../assets/images/1.jpeg';
+import moment from 'jalali-moment';
+import Loader from '../../Loading/Loader';
 
 import './whatsnews.css';
+import { HomeContext } from '../../../context/context';
 
 const WhatsNews = () => {
+  const { category, loadingCatPost, news } = useContext(HomeContext);
+
   return (
     <div
       id='whats-news'
@@ -28,12 +32,16 @@ const WhatsNews = () => {
                       <NavLink to='/'>همه</NavLink>
                     </li>
 
-                    <li className='ml-5 has-text-weight-bold'>
-                      <NavLink to='/'>طنز</NavLink>
-                    </li>
-                    <li className='ml-5 has-text-weight-bold'>
-                      <NavLink to='/'>اجتماعی</NavLink>
-                    </li>
+                    {category &&
+                      category?.map((cat) => {
+                        return (
+                          <li
+                            key={cat.id}
+                            className='ml-5 has-text-weight-bold'>
+                            <NavLink to='/'>{cat.name}</NavLink>
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
                 <div className='whats-news-name'>
@@ -41,62 +49,44 @@ const WhatsNews = () => {
                 </div>
               </div>
 
-              <div className='whats-news-post mt-6'>
-                <div className='whats-news-post-item'>
-                  <div className='whats-news-post-item-img'>
-                    <Link to='/'>
-                      <img
-                        src={img}
-                        alt=''
-                      />
-                    </Link>
-                  </div>
-                  <div className='whats-news-post-item-description'>
-                    <Link to='/'>
-                      <p>این تست پسته</p>
-                    </Link>
-                    <div className='whats-news-post-item-date'>
-                      <p>22/09/1404</p>
-                    </div>
-                  </div>
+              {loadingCatPost ? (
+                <div className='has-text-centered'>
+                  <Loader />
                 </div>
-                <div className='whats-news-post-item'>
-                  <div className='whats-news-post-item-img'>
-                    <Link to='/'>
-                      <img
-                        src={img}
-                        alt=''
-                      />
-                    </Link>
-                  </div>
-                  <div className='whats-news-post-item-description'>
-                    <Link to='/'>
-                      <p>این تست پسته</p>
-                    </Link>
-                    <div className='whats-news-post-item-date'>
-                      <p>22/09/1404</p>
-                    </div>
-                  </div>
+              ) : (
+                <div className='whats-news-post mt-6'>
+                  {news &&
+                    news?.map((post) => {
+                      return (
+                        <div
+                          className='whats-news-post-item'
+                          key={post.id}>
+                          <div className='whats-news-post-item-img'>
+                            <Link to='/'>
+                              <img
+                                src={post.url}
+                                alt=''
+                              />
+                            </Link>
+                          </div>
+                          <div className='whats-news-post-item-description'>
+                            <Link to='/'>
+                              <p>{post.desc}</p>
+                            </Link>
+                            <div className='whats-news-post-item-date'>
+                              <p>
+                                {' '}
+                                {moment(post.createdAt)
+                                  .locale('fa')
+                                  .format('YYYY-MM-DD')}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
-                <div className='whats-news-post-item'>
-                  <div className='whats-news-post-item-img'>
-                    <Link to='/'>
-                      <img
-                        src={img}
-                        alt=''
-                      />
-                    </Link>
-                  </div>
-                  <div className='whats-news-post-item-description'>
-                    <Link to='/'>
-                      <p>این تست پسته</p>
-                    </Link>
-                    <div className='whats-news-post-item-date'>
-                      <p>22/09/1404</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

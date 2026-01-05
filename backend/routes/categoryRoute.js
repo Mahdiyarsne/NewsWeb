@@ -4,9 +4,12 @@ import {
   createCategory,
   deleteCategory,
   getCategories,
+  getCategoryHome,
   updateCategory,
 } from '../controllers/CategoryController.js';
 const router = express.Router();
+
+router.get('/api/category/home', getCategoryHome);
 
 router.get('/api/get-category', verifyToken, getCategories);
 router.post('/api/create-category', verifyToken, createCategory);

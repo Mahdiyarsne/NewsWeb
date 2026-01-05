@@ -10,6 +10,16 @@ export const getCategories = async (req, res) => {
   }
 };
 
+//دریافت دسته بندی برای صفحه اصلی
+export const getCategoryHome = async (req, res) => {
+  try {
+    const categories = await Category.findAll();
+    res.json(categories);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //ساخت دسته بندی
 export const createCategory = async (req, res) => {
   const name = req.body.name;
