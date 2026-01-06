@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import sendNews from '../../../assets/images/send-news.jpg';
 import moment from 'jalali-moment';
 import Loader from '../../Loading/Loader';
@@ -8,7 +8,13 @@ import './whatsnews.css';
 import { HomeContext } from '../../../context/context';
 
 const WhatsNews = () => {
-  const { category, loadingCatPost, news } = useContext(HomeContext);
+  const { category, loadingCatPost, news, LoadCatPost } =
+    useContext(HomeContext);
+
+  const cat = useLocation().search;
+  useEffect(() => {
+    LoadCatPost();
+  }, [cat]);
 
   return (
     <div
@@ -38,7 +44,7 @@ const WhatsNews = () => {
                           <li
                             key={cat.id}
                             className='ml-5 has-text-weight-bold'>
-                            <NavLink to='/'>{cat.name}</NavLink>
+                            <NavLink to={`/?cat=${cat.id}`}>{cat.name}</NavLink>
                           </li>
                         );
                       })}

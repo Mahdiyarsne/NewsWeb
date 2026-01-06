@@ -20,6 +20,7 @@ import {
   CATEGORY_POST_SUCCESS,
   CATEGORY_POST_FAIL,
 } from './constants/categoryConstants';
+import { useLocation } from 'react-router-dom';
 
 export const HomeContext = createContext();
 const INITIAL_STATE = {
@@ -53,6 +54,8 @@ export const HomeContextProvider = ({ children }) => {
   );
 
   const [category, setCategory] = useState([]);
+
+  const cat = useLocation().search;
 
   useEffect(() => {
     LoadVideo();
@@ -89,7 +92,7 @@ export const HomeContextProvider = ({ children }) => {
   const LoadCatPost = async () => {
     try {
       catPostDispatch({ type: CATEGORY_POST_REQUEST });
-      const { data } = await axios.get(`${baseUrl}/api/news/cat-news`);
+      const { data } = await axios.get(`${baseUrl}/api/news/cat-news${cat}`);
       catPostDispatch({ type: CATEGORY_POST_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
@@ -121,7 +124,7 @@ export const HomeContextProvider = ({ children }) => {
         loadingCatPost: stateCatPost.loading,
         errorCatPost: stateCatPost.error,
         news: stateCatPost.news,
-
+        LoadCatPost,
         category,
       }}>
       {children}
