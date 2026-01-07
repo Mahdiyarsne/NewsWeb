@@ -1,3 +1,15 @@
 .detail-image img {
-    border-radius: 10px;
+  border-radius: 10px;
+}
+
+h1,
+p {
+  color: black !important;
+}
+
+.author img {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
 }

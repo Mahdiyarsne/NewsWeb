@@ -1,0 +1,17 @@
+textarea,
+input {
+  background: white !important;
+  color: black !important;
+}
+
+input::placeholder {
+  color: black !important;
+}
+
+textarea::placeholder {
+  color: black !important;
+}
+
+.back {
+  background: white !important;
+}

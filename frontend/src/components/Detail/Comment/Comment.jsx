@@ -1,5 +1,6 @@
 import React from 'react';
 import ViewComment from './ViewComment';
+import './comment.css';
 
 const Comment = () => {
   return (
@@ -8,7 +9,7 @@ const Comment = () => {
         <form>
           <div className='field'>
             <textarea
-              className='textarea'
+              className='textarea text-black'
               placeholder='نظر شما'></textarea>
           </div>
           <div className='columns'>

@@ -30,7 +30,9 @@ const PopularNews = () => {
                   return (
                     <div className='column popluar-news'>
                       <div className='popular-img is-relative'>
-                        <Link to='/'>
+                        <Link
+                          to={`/detail/${news.id}`}
+                          state={news}>
                           <img
                             src={news.url}
                             className='is-fullwidth popular-image'
@@ -46,7 +48,7 @@ const PopularNews = () => {
                       </div>
                       <div className='popular-title'>
                         <h6 className='is-flex has-text-weight-bold is-size-5'>
-                          <Link to='/'>{news.title}</Link>
+                          <Link to={`/detail/${news.id}`}>{news.title}</Link>
                         </h6>
                       </div>
                       <div className='author mt-4'>
