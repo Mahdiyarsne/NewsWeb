@@ -21,6 +21,12 @@ import {
   CATEGORY_POST_FAIL,
 } from './constants/categoryConstants';
 import { useLocation } from 'react-router-dom';
+import { popularNewsReducer } from './reducers/reducerPopular';
+import {
+  POPULAR_NEWS_FAIL,
+  POPULAR_NEWS_REQUEST,
+  POPULAR_NEWS_SUCCESS,
+} from './constants/popluarConstants';
 
 export const HomeContext = createContext();
 const INITIAL_STATE = {
@@ -40,12 +46,20 @@ const INITIAL_STATE_CAT_POST = {
   error: '',
   news: [],
 };
-
+const INITIAL_STATE_POPULAR_NEWS = {
+  loading: true,
+  error: '',
+  popularNews: [],
+};
 export const HomeContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, INITIAL_STATE);
   const [stateLastPost, lastPostDispatch] = useReducer(
     lastPostReducer,
     INITIAL_STATE_LAST_POST
+  );
+  const [statePopularNews, popluarNewsDispatch] = useReducer(
+    popularNewsReducer,
+    INITIAL_STATE_POPULAR_NEWS
   );
 
   const [stateCatPost, catPostDispatch] = useReducer(
@@ -62,6 +76,7 @@ export const HomeContextProvider = ({ children }) => {
     LoadLastPost();
     LoadCategory();
     LoadCatPost();
+    LoadMostPopular();
   }, []);
 
   const LoadVideo = async () => {
@@ -112,6 +127,20 @@ export const HomeContextProvider = ({ children }) => {
     }
   };
 
+  const LoadMostPopular = async () => {
+    try {
+      popluarNewsDispatch({ type: POPULAR_NEWS_REQUEST });
+      const { data } = await axios.get(`${baseUrl}/api/news/popular`);
+      popluarNewsDispatch({ type: POPULAR_NEWS_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error);
+      popluarNewsDispatch({
+        type: POPULAR_NEWS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
   return (
     <HomeContext.Provider
       value={{
@@ -126,6 +155,9 @@ export const HomeContextProvider = ({ children }) => {
         news: stateCatPost.news,
         LoadCatPost,
         category,
+        laodingPopular: statePopularNews.loading,
+        errorPopular: statePopularNews.error,
+        popularNews: statePopularNews.popularNews,
       }}>
       {children}
     </HomeContext.Provider>

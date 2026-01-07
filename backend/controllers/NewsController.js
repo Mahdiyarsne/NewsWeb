@@ -165,7 +165,7 @@ export const getDetailNews = async (req, res) => {
 export const popularNews = async (req, res) => {
   try {
     const news = await News.findAll({
-      limit: 4,
+      limit: 3,
       order: [['numViews', 'DESC']],
       include: [
         {
