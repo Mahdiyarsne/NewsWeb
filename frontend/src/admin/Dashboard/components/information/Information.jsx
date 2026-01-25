@@ -10,7 +10,8 @@ import {
 import { AdminContext } from '../../../context/context';
 
 const Information = () => {
-  const { userId, profilePhoto } = useContext(AdminContext);
+  const { userId, profilePhoto, comments, news, users } =
+    useContext(AdminContext);
 
   return (
     <div className='infromation'>
@@ -37,17 +38,17 @@ const Information = () => {
       <div className='info is-flex is-align-items-center is-justify-content-space-between'>
         <div className='info-item'>
           <h4>خبرها</h4>
-          <span>12</span>
+          <span>{news.length}</span>
           <BsFillCapslockFill />
         </div>
         <div className='info-item'>
           <h4>کاربران</h4>
-          <span>8</span>
+          <span>{users.length}</span>
           <BsFillPersonPlusFill />
         </div>
         <div className='info-item'>
           <h4>نظرات</h4>
-          <span>10</span>
+          <span>{comments.length}</span>
           <BsChatDots />
         </div>
       </div>

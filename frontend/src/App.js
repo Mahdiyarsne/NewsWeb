@@ -18,8 +18,14 @@ import HomeScreen from './pages/HomeScreen';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import Detail from './pages/Detail';
+import ViewComment from './admin/dashboard/components/comment/ViewComment';
+import { useContext } from 'react';
+import { AdminContext } from './admin/context/context';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
+  const { userId } = useContext(AdminContext);
+
   return (
     <>
       <Routes>
@@ -41,71 +47,84 @@ function App() {
           path='/detail/:id'
           element={<Detail />}
         />
-
-        {/* مسیره های پنل آدمین */}
         <Route
           path='/administrator'
           element={<Login />}
         />
-        <Route
-          path='/dashboard'
-          element={<Main />}
-        />
-        <Route
-          path='/add-news'
-          element={<AddNews />}
-        />
-        <Route
-          path='/view-news'
-          element={<ViewNews />}
-        />
-        <Route
-          path='/edit-news/:id'
-          element={<EditNews />}
-        />
 
-        {/* مسیر دسته بندی */}
-        <Route
-          path='/view-category'
-          element={<ViewCategory />}
-        />
-        <Route
-          path='/add-category'
-          element={<AddCategory />}
-        />
-        <Route
-          path='/edit-category/:id'
-          element={<EditCategory />}
-        />
+        {/* مسیره های پنل آدمین */}
 
-        {/* مسیرهای ویدیو */}
-        <Route
-          path='/view-video'
-          element={<ViewVideo />}
-        />
-        <Route
-          path='/add-video'
-          element={<AddVideo />}
-        />
+        {userId && (
+          <>
+            <Route
+              path='/dashboard'
+              element={<Main />}
+            />
+            <Route
+              path='/add-news'
+              element={<AddNews />}
+            />
+            <Route
+              path='/view-news'
+              element={<ViewNews />}
+            />
+            <Route
+              path='/edit-news/:id'
+              element={<EditNews />}
+            />
+            <Route
+              path='/comment'
+              element={<ViewComment />}
+            />
 
-        {/* مسیره های کاربران */}
-        <Route
-          path='/view-users'
-          element={<ViewUsers />}
-        />
+            {/* مسیر دسته بندی */}
+            <Route
+              path='/view-category'
+              element={<ViewCategory />}
+            />
+            <Route
+              path='/add-category'
+              element={<AddCategory />}
+            />
+            <Route
+              path='/edit-category/:id'
+              element={<EditCategory />}
+            />
 
-        <Route
-          path='/add-users'
-          element={<AddUsers />}
-        />
-        <Route
-          path='/edit-users/:id'
-          element={<EditUsers />}
-        />
+            {/* مسیرهای ویدیو */}
+            <Route
+              path='/view-video'
+              element={<ViewVideo />}
+            />
+            <Route
+              path='/add-video'
+              element={<AddVideo />}
+            />
 
+            {/* مسیره های کاربران */}
+            <Route
+              path='/view-users'
+              element={<ViewUsers />}
+            />
+
+            <Route
+              path='/add-users'
+              element={<AddUsers />}
+            />
+            <Route
+              path='/edit-users/:id'
+              element={<EditUsers />}
+            />
+
+            <Route
+              path='/update-profile/:id'
+              element={<UpdateProfile />}
+            />
+          </>
+        )}
         <Route
-          path='/update-profile/:id'
-          element={<UpdateProfile />}
+          path='*'
+          element={<NotFound />}
         />
       </Routes>
 

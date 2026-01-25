@@ -45,3 +45,30 @@
   font-weight: bold;
   margin-right: 20px;
 }
+
+@media screen and (max-width: 768px) {
+  .infromation {
+    padding: 30px 50px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .infromation {
+    padding: 30px 0;
+  }
+  .info-item h4 {
+    font-size: 18px;
+    margin-right: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .infromation {
+    padding: 20px 0px;
+    width: 60vw;
+  }
+  .info-item h4 {
+    font-size: 12px;
+    margin-right: 15px;
+  }
+}

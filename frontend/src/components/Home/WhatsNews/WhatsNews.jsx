@@ -68,7 +68,9 @@ const WhatsNews = () => {
                           className='whats-news-post-item'
                           key={post.id}>
                           <div className='whats-news-post-item-img'>
-                            <Link to='/'>
+                            <Link
+                              state={post}
+                              to={`/detail/${post.id}`}>
                               <img
                                 src={post.url}
                                 alt=''
@@ -76,7 +78,9 @@ const WhatsNews = () => {
                             </Link>
                           </div>
                           <div className='whats-news-post-item-description'>
-                            <Link to='/'>
+                            <Link
+                              state={post}
+                              to={`/detail/${post.id}`}>
                               <p>{post.desc}</p>
                             </Link>
                             <div className='whats-news-post-item-date'>

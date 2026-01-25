@@ -1,6 +1,16 @@
 import Comment from '../Comment/Comment';
 import './content.css';
+import { useContext, useEffect } from 'react';
+import { HomeContext } from '../../../context/context';
+import { useParams } from 'react-router-dom';
 const Content = ({ data }) => {
+  const { getSingleComment, LoadView } = useContext(HomeContext);
+  const { id } = useParams();
+  useEffect(() => {
+    getSingleComment(id);
+    LoadView(id);
+  }, []);
+
   return (
     <div className='content-detail'>
       <div className='detail-image'>

@@ -4,6 +4,8 @@ import NavBar from '../components/Home/Navbar/Navbar';
 import contact from '../assets/images/contact.webp';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useContext } from 'react';
+import { HomeContext } from '../context/context';
 
 const formSchema = Yup.object({
   email: Yup.string().required(' وارد کردن ایمیل الزامی است'),
@@ -12,6 +14,8 @@ const formSchema = Yup.object({
 });
 
 const ContactUs = () => {
+  const { handleEmail } = useContext(HomeContext);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,7 +23,7 @@ const ContactUs = () => {
       message: '',
     },
     onSubmit: (values) => {
-      console.log(values);
+      handleEmail(values);
     },
     validationSchema: formSchema,
   });

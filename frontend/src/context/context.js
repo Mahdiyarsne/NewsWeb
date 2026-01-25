@@ -1,6 +1,8 @@
 import { createContext, useEffect, useReducer, useState } from 'react';
 import { videoReducer } from './reducers/reducerVideo';
 import { catPostReducer } from './reducers/reducerCategory';
+import { toast } from 'react-toastify';
+
 import {
   VIDEO_FAIL,
   VIDEO_REQUEST,
@@ -20,7 +22,7 @@ import {
   CATEGORY_POST_SUCCESS,
   CATEGORY_POST_FAIL,
 } from './constants/categoryConstants';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { popularNewsReducer } from './reducers/reducerPopular';
 import {
   POPULAR_NEWS_FAIL,
@@ -52,6 +54,7 @@ const INITIAL_STATE_POPULAR_NEWS = {
   popularNews: [],
 };
 export const HomeContextProvider = ({ children }) => {
+  const navgate = useNavigate();
   const [state, dispatch] = useReducer(videoReducer, INITIAL_STATE);
   const [stateLastPost, lastPostDispatch] = useReducer(
     lastPostReducer,
@@ -68,7 +71,7 @@ export const HomeContextProvider = ({ children }) => {
   );
 
   const [category, setCategory] = useState([]);
-
+  const [newsComment, setNewsComment] = useState([]);
   const cat = useLocation().search;
 
   useEffect(() => {
@@ -104,6 +107,7 @@ export const HomeContextProvider = ({ children }) => {
     }
   };
 
+  //بخش دسته بندی
   const LoadCatPost = async () => {
     try {
       catPostDispatch({ type: CATEGORY_POST_REQUEST });
@@ -140,6 +144,57 @@ export const HomeContextProvider = ({ children }) => {
       });
     }
   };
+  const LoadView = async (id) => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/news/detail/${id}`);
+      console.log(res);
+      LoadMostPopular();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //بخش نظرات
+  const createComment = async (data) => {
+    try {
+      const res = await axios.post(`${baseUrl}/api/create-comment`, data);
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSingleComment = async (id) => {
+    try {
+      const res = await axios.get(`${baseUrl}/api/comment/${id}`);
+      setNewsComment(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  //بخش ارسال ایمیل به آدمین توسط کاربر
+  const handleEmail = async (data) => {
+    try {
+      const res = await axios.post(`${baseUrl}/api/send-email`, data);
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      navgate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <HomeContext.Provider
@@ -158,6 +213,11 @@ export const HomeContextProvider = ({ children }) => {
         laodingPopular: statePopularNews.loading,
         errorPopular: statePopularNews.error,
         popularNews: statePopularNews.popularNews,
+        createComment,
+        getSingleComment,
+        newsComment,
+        LoadView,
+        handleEmail,
       }}>
       {children}
     </HomeContext.Provider>

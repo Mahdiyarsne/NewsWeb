@@ -28,7 +28,7 @@ const PopularNews = () => {
               {popularNews &&
                 popularNews?.map((news) => {
                   return (
-                    <div className='column popluar-news'>
+                    <div className='column popluar-news' key={news.id}>
                       <div className='popular-img is-relative'>
                         <Link
                           to={`/detail/${news.id}`}

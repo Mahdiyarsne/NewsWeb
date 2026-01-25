@@ -22,5 +22,9 @@ footer p {
 .footer-desc p,
 .footer-adderss p,
 .footer-phone p {
-  color: rgb(200, 200, 200);
+  color: rgb(200, 200, 200) !important;
+}
+
+.color h1 {
+  color: rgb(200, 200, 200) !important;
 }

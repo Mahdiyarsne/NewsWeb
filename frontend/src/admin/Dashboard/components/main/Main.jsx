@@ -7,8 +7,8 @@ const Main = () => {
   const { profileName } = useContext(AdminContext);
   return (
     <Dashboard>
-      <h1 className='is-size-3'> سلام {profileName}, به پنل آدمین خوش آمدی</h1>
-      <h3 className='is-size-5 mt-5'> امیدوارم خبر های خوبی داشته باشی</h3>
+      <h1 className='font'> سلام {profileName}, به پنل آدمین خوش آمدی</h1>
+      <h3 className='font'> امیدوارم خبر های خوبی داشته باشی</h3>
     </Dashboard>
   );
 };

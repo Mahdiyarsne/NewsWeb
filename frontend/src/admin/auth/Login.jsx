@@ -33,7 +33,7 @@ const Login = () => {
               <form
                 className='box'
                 onSubmit={formik.handleSubmit}>
-                <h1 className='title has-text-centered mb-5'>
+                <h1 className='title has-text-centered mb-5 has-text-white'>
                   ورود به پنل مدیریت
                 </h1>
                 <h1 className='has-text-centered has-text-danger py-3'>

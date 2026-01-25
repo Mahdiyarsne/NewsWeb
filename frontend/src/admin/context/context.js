@@ -25,6 +25,7 @@ export const AdminContextProvider = ({ children }) => {
   const [profileError, setProfileError] = useState('');
   const [profilePhoto, setProfilePhoto] = useState('');
   const [profileName, setProfileName] = useState('');
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -491,6 +492,88 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  //بخش نظرات
+  const getAllComment = async () => {
+    try {
+      const res = await axiosJWT.get(`${baseUrl}/api/get-comment`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      setComments(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async (id) => {
+    try {
+      const res = await axios.delete(`${baseUrl}/api/delete-comment/${id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getAllComment();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const activeComment = async (id) => {
+    const data = { isActive: true };
+    try {
+      const res = await axiosJWT.put(
+        `${baseUrl}/api/comment/active/${id}`,
+        data,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getAllComment();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unactiveComment = async (id) => {
+    const data = { isActive: false };
+    try {
+      const res = await axiosJWT.put(
+        `${baseUrl}/api/comment/unactive/${id}`,
+        data,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.msg, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        theme: 'colored',
+      });
+      getAllComment();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -527,6 +610,11 @@ export const AdminContextProvider = ({ children }) => {
         profileError,
         profileName,
         profilePhoto,
+        getAllComment,
+        comments,
+        deleteComment,
+        activeComment,
+        unactiveComment,
       }}>
       {children}
     </AdminContext.Provider>

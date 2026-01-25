@@ -12,3 +12,39 @@
   width: 100%;
   color: rgb(42, 42, 42);
 }
+
+@media screen and (min-width: 992px) {
+  .main {
+    padding: 95px 50px;
+    width: 100%;
+    color: rgb(42, 42, 42);
+  }
+  .main-info {
+    background: rgb(252, 252, 252);
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 80px 50px;
+    width: 100%;
+    color: rgb(42, 42, 42);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .main {
+    padding: 80px 10px;
+    width: 100%;
+    color: rgb(42, 42, 42);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main {
+    padding: 80px 0px;
+    width: 100%;
+    color: rgb(42, 42, 42);
+  }
+}

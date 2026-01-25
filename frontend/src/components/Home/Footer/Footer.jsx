@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../../assets/images/Logo2.png';
 import logoImg from '../../../assets/images/Logo.jfif';
 import newsImg from '../../../assets/images/1.jpeg';
 import './footer.css';
 import { Link } from 'react-router-dom';
+import { HomeContext } from '../../../context/context';
 
 const Footer = () => {
+  const { popularNews } = useContext(HomeContext);
   return (
     <footer className=' mt-6 pt-6 pb-6'>
       <div className='container pt-6 pb-6'>
@@ -19,25 +21,35 @@ const Footer = () => {
           </div>
           <div className='column is-one-third'>
             <h1 className='subtitle has-text-white mb-5'>محبوب ترین خبر</h1>
-            <ul>
-              <li className='mt-4'>
-                <div className='post-footer is-flex is-aling-items-center'>
-                  <div className='post-footer-image'>
-                    <Link to='/'>
-                      <img
-                        src={newsImg}
-                        alt='NotFound'
-                      />
-                    </Link>
-                  </div>
-                  <div className='post-footer-title pr-3'>
-                    <Link to='/'>
-                      <h1> تست تایتل</h1>
-                    </Link>
-                    <h1 className='post-footer-name'>مهدی یار</h1>
-                  </div>
-                </div>
-              </li>
+
+            <ul className='color'>
+              {popularNews &&
+                popularNews?.map((news) => {
+                  return (
+                    <li
+                      className='mt-4'
+                      key={news.div}>
+                      <div className=' post-footer is-flex is-aling-items-center'>
+                        <div className='post-footer-image'>
+                          <Link to='/'>
+                            <img
+                              src={news.url}
+                              alt='NotFound'
+                            />
+                          </Link>
+                        </div>
+                        <div className='post-footer-title pr-3 color'>
+                          <Link to='/'>
+                            <h1 className=''>{news.title}</h1>
+                          </Link>
+                          <h1 className='post-footer-name'>
+                            {news?.user?.name}
+                          </h1>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
           <div className='column is-one-third'>
@@ -63,7 +75,7 @@ const Footer = () => {
           </div>
         </div>
         <div className='columns mt-6 has-text-centered is-flex is-justify-content-center'>
-          <p>
+          <p className='has-text-white'>
             تمام حقوق مادی و معنوی مطلق به{' '}
             <a
               className='has-text-info'

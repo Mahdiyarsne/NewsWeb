@@ -79,7 +79,7 @@ const Sidebar = () => {
           )}
         </li>
         <li>
-          <Link to=''>نظرات</Link>
+          <Link to='/comment'>نظرات</Link>
         </li>
         <li>
           <span onClick={Logout}>خروج</span>
